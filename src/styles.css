@@ -1,0 +1,42 @@
+h1 {
+	font-size: calc(24px + 12 * (100vw / 1180));
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+h2 {
+	font-size: calc(20px + 10 * (100vw / 1180));
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
+
+h3 {
+	font-size: calc(18px + 6 * (100vw / 1180));
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+p {
+	font-size: calc(14px + 2 * (100vw / 1180));
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+ul > li {
+	cursor: pointer;
+}
+
+li + li {
+	margin-left: calc(5px + 35 * (100vw / 1000));
+}
+
+button {
+	font-size: calc(14px + 2 * (100vw / 1180));
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
