@@ -10,3 +10,9 @@ export const colors = stylex.defineVars({
 	text_main: '#FFF4EE',
 	small_text: '#B2B5BB',
 })
+
+export const containers = stylex.defineVars({
+	width: '1180px',
+	margin: '0 auto',
+	padding: '0 10px'
+})

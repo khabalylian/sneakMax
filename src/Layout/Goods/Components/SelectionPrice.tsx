@@ -4,6 +4,7 @@ import { MouseEvent, useMemo, useState } from 'react';
 import { Box } from '@mui/material';
 import { colors } from '../../../variables/tokens.stylex';
 import { Checkbox } from '../../../helpers/Checkbox';
+import { CustomButton } from '../../../helpers/CustomButton';
 
 interface ISize {
     numberSize: number;
@@ -24,6 +25,9 @@ const SIZE: ISize[] = [
 
 const styles = stylex.create({
     selection: {
+        display: 'flex',
+        flexDirection: 'column',
+		alignItems: 'center',
         maxWidth: '280px',
         color: colors.text
     },
@@ -55,6 +59,7 @@ const styles = stylex.create({
         width: '50px'
     },
     gender: {
+		width: '240px',
         marginTop: '20px'
     },
     genderWrapper: {
@@ -68,13 +73,14 @@ const styles = stylex.create({
     table: {
         display: 'flex',
         flexWrap: 'wrap',
-        width: '220px',
+        width: '240px',
         marginTop: '10px'
     },
     tableBox: {
-        width: '70px',
-        padding: '20px 25px',
-        cursor: 'pointer'
+        width: '80px',
+        cursor: 'pointer',
+        textAlign: 'center',
+        padding: '20px 0'
     },
     tableHidden: {
         color: colors.small_text,
@@ -85,6 +91,14 @@ const styles = stylex.create({
     },
     tableActive: {
         border: `2px solid ${colors.btn_main}`
+    },
+    groupBtn: {
+        width: '240px',
+        marginTop: '20px'
+    },
+    btn: {
+        width: '100%',
+        border: 'none'
     }
 });
 
@@ -103,7 +117,7 @@ export const SelectionPrice = () => {
         const targetElement = e.currentTarget;
 
         if (targetElement && targetElement.hasAttribute('data-size')) {
-            const dataValue = +targetElement.getAttribute('data-size');
+            const dataValue = Number(targetElement.getAttribute('data-size'));
 
             if (!item.inStock) return;
 
@@ -120,8 +134,6 @@ export const SelectionPrice = () => {
             }
         }
     };
-
-    console.log(sizeActive);
 
     const renderSizeTabs = (data: ISize[]) => {
         return data.map(item => {
@@ -183,6 +195,20 @@ export const SelectionPrice = () => {
                 <div className={stylex(styles.table)}>
                     {useMemo(() => renderSizeTabs(SIZE), [sizeActive])}
                 </div>
+            </div>
+            <div className={stylex(styles.groupBtn)}>
+                <CustomButton
+                    backgroundColor='gray'
+                    className={styles.btn}
+                >
+                    Применить
+                </CustomButton>
+                <CustomButton
+                    backgroundColor='white'
+                    className={styles.btn}
+                >
+                    сбросить
+                </CustomButton>
             </div>
         </div>
     );

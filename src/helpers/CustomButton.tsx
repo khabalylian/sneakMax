@@ -29,7 +29,7 @@ const styles = stylex.create({
         }
     },
     gray: {
-        backgroundColor: colors.small_text,
+        backgroundColor: colors.text,
         ':hover': {
             backgroundColor: colors.btn_gray_hover
         }
@@ -39,7 +39,8 @@ const styles = stylex.create({
         backgroundColor: colors.text_main,
         border: `1px solid ${colors.text}`,
         ':hover': {
-            backgroundColor: colors.text
+            backgroundColor: colors.text,
+			color: colors.text_main
         }
     }
 });
