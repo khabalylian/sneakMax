@@ -1,6 +1,6 @@
 import stylex from '@stylexjs/stylex';
 import { Menu } from './Components/Menu';
-import { colors } from '../../variables/tokens.stylex';
+import { colors, containers } from '../../variables/tokens.stylex';
 import { CustomButton } from '../../helpers/CustomButton';
 
 const styles = stylex.create({
@@ -8,13 +8,14 @@ const styles = stylex.create({
         backgroundColor: colors.bg_purple,
         color: colors.text_main
     },
-	container: {
-		maxWidth: '1180px',
-		margin: '0 auto'
-	},
+    container: {
+        maxWidth: containers.width,
+        margin: containers.margin,
+        padding: containers.padding
+    },
     content: {
         position: 'relative',
-        padding: '100px 0',
+        padding: '100px 0'
     },
     title: {
         maxWidth: '580px',
