@@ -1,14 +1,13 @@
 import stylex from '@stylexjs/stylex';
-import { IBuyItem } from '../Header.interface';
 import { ByuItem } from './BuyItem';
 import { CustomButton } from '../../../helpers/CustomButton';
 
 import { colors } from '../../../variables/tokens.stylex';
+import { GoodsState } from '../../../store';
 
 interface IBasketModal {
-	listItems: IBuyItem[];
-	totalPrice: number;
-	handleClose: () => void;
+    totalPrice: number;
+    handleClose: () => void;
 }
 
 const styles = stylex.create({
@@ -27,12 +26,15 @@ const styles = stylex.create({
         position: 'absolute',
         top: '64px',
         right: 0,
-        maxWidth: '480px',
+        width: '480px',
         height: '415px',
         backgroundColor: colors.text_main,
         zIndex: 2000
     },
     listItem: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
         overflow: 'auto',
         height: '323px',
         marginRight: '5px',
@@ -67,15 +69,19 @@ const styles = stylex.create({
     }
 });
 
-export const BasketModal = ({ listItems, totalPrice, handleClose }: IBasketModal) => {
+export const BasketModal = ({ totalPrice, handleClose }: IBasketModal) => {
+    const goods = GoodsState(state => state.goods);
+
     return (
         <>
             <div className={stylex(styles.modal)} onClick={handleClose}></div>
             <div className={stylex(styles.card)}>
                 <div className={stylex(styles.listItem)}>
-                    {listItems.map((item, id) => (
+                    {goods.map((item, id) => (
                         <ByuItem
                             key={id}
+                            article={item.article}
+                            image={item.image}
                             title={item.title}
                             price={item.price}
                         />

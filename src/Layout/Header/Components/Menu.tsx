@@ -1,24 +1,15 @@
 import { useEffect, useState } from 'react';
 import stylex from '@stylexjs/stylex';
-
-import { IBuyItem } from '../Header.interface';
 import { BasketModal } from './BasketModal';
 import { colors } from '../../../variables/tokens.stylex';
 import { BurgerMenu } from './BurgerMenu';
+import { GoodsState } from '../../../store';
+import { IGoods } from '../../Goods/Goods';
 
-const MEDIA_WIDTH_768 = '@media (max-width: 800px)';
-
-const listItems = [
-    { title: 'Женские кроссовки Puma Force 1 Shadow', price: 4562 },
-    { title: 'Женские кроссовки Puma Force 1 Shadow', price: 44324 },
-    { title: 'Женские кроссовки Puma Force 1 Shadow', price: 445 },
-    { title: 'Женские кроссовки Puma Force 1 Shadow', price: 445 },
-    { title: 'Женские кроссовки Puma Force 1 Shadow', price: 445 }
-];
+const MEDIA_WIDTH_576 = '@media (max-width: 576px)';
 
 const styles = stylex.create({
     wrapper: {
-		position: 'relative',
         display: 'flex',
         height: '64px',
         justifyContent: 'space-between',
@@ -38,43 +29,62 @@ const styles = stylex.create({
         lineHeight: 'normal'
     },
     busket: {
+        position: 'relative',
         width: '20px'
     },
     burgerMenu: {
-        position: 'relative',
         transition: 'all 0.3s ease',
         display: {
             default: 'none',
-            [MEDIA_WIDTH_768]: 'block'
+            [MEDIA_WIDTH_576]: 'block'
         }
     },
     menuList: {
         display: {
             default: 'block',
-            [MEDIA_WIDTH_768]: 'none'
+            [MEDIA_WIDTH_576]: 'none'
         }
     },
-	container: {
-		display: 'flex',
-		width: '100%',
-		gap: '20px',
-		justifyContent: 'space-between',
-		alignItems: 'center'
-	}
+    container: {
+        display: 'flex',
+        width: '100%',
+        gap: '20px',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    busketCounter: {
+        position: 'absolute',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        bottom: '-30%',
+        right: '-30%',
+        width: '16px',
+        height: '16px',
+        fontSize: '14px',
+        borderRadius: '50%',
+        backgroundColor: colors.btn_main,
+        cursor: 'pointer'
+    }
 });
 
 export const Menu = () => {
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [totalPrice, setTotalPrice] = useState<number>(0);
-	const [openBurgerMenu, setOpenBurgerMenu] = useState<boolean>(false);
+    const [openBurgerMenu, setOpenBurgerMenu] = useState<boolean>(false);
 
-    const sumPrice = (list: IBuyItem[]) => {
-        return list.reduce((acc, product) => (acc += product.price), 0);
+    const goods = GoodsState(state => state.goods);
+    const countGoods = GoodsState(state => state.countGoods);
+    const updateCount = GoodsState(state => state.updateCount);
+
+    const sumPrice = (goods: IGoods[]) => {
+        return goods.reduce((acc, product) => (acc += product.price), 0);
     };
 
     useEffect(() => {
-        setTotalPrice(sumPrice(listItems));
-    }, [listItems]);
+        setTotalPrice(sumPrice(goods));
+        updateCount(goods.length);
+    }, [goods]);
 
     const handleOpen = () => {
         setOpenModal(true);
@@ -83,9 +93,9 @@ export const Menu = () => {
         setOpenModal(false);
     };
 
-	const handleBurger = () => {
-		setOpenBurgerMenu(!openBurgerMenu);
-	}
+    const handleBurger = () => {
+        setOpenBurgerMenu(!openBurgerMenu);
+    };
 
     return (
         <div className={stylex(styles.wrapper)}>
@@ -102,11 +112,11 @@ export const Menu = () => {
                         <li>Корзина</li>
                     </ul>
                 </nav>
-                <div
-                    className={stylex(styles.burgerMenu)}
-                    onClick={handleBurger}
-                >
-                    <BurgerMenu openBurgerMenu={openBurgerMenu} />
+                <div className={stylex(styles.burgerMenu)}>
+                    <BurgerMenu
+                        openBurgerMenu={openBurgerMenu}
+                        handleBurger={handleBurger}
+                    />
                 </div>
             </div>
             <div className={stylex(styles.busket)}>
@@ -124,10 +134,15 @@ export const Menu = () => {
                         fill='white'
                     />
                 </svg>
+                <span
+                    onClick={handleOpen}
+                    className={stylex(styles.busketCounter)}
+                >
+                    {countGoods}
+                </span>
             </div>
             {openModal && (
                 <BasketModal
-                    listItems={listItems}
                     totalPrice={totalPrice}
                     handleClose={handleClose}
                 />

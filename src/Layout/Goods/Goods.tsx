@@ -3,58 +3,67 @@ import { colors, containers } from '../../variables/tokens.stylex';
 import { SelectionPrice } from './Components/SelectionPrice';
 import { CustomButton } from '../../helpers/CustomButton';
 import { HoverGoods } from './Components/HoverGoods';
-
 export interface IGoods {
+    article: string;
     image: string;
     title: string;
-    price: string;
+    price: number;
 }
 
 const GOODS: IGoods[] = [
     {
+        article: '2331Acvf2',
         image: 'src/Layout/Goods/img/footwear.jpg',
         title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: '11 000'
+        price: 11342
     },
     {
+        article: '231423f2',
         image: 'src/Layout/Goods/img/footwear.jpg',
         title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: '11 000'
+        price: 123
     },
     {
+        article: '232fdGcvf2',
         image: 'src/Layout/Goods/img/footwear.jpg',
         title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: '11 000'
+        price: 564
     },
     {
+        article: '4123w2WWf2',
         image: 'src/Layout/Goods/img/footwear.jpg',
         title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: '11 000'
+        price: 11000
     },
     {
+        article: '2511Ac54Gf2',
         image: 'src/Layout/Goods/img/footwear.jpg',
         title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: '11 000'
+        price: 11000
     },
     {
+        article: '7612433f2',
         image: 'src/Layout/Goods/img/footwear.jpg',
         title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: '11 000'
+        price: 11000
     },
     {
+        article: '643asWWavf2',
         image: 'src/Layout/Goods/img/footwear.jpg',
         title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: '11 000'
+        price: 11000
     },
     {
+        article: '63jkhHvf2',
         image: 'src/Layout/Goods/img/footwear.jpg',
         title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: '11 000'
+        price: 11000
     },
     {
+        article: '1332vf2',
         image: 'src/Layout/Goods/img/footwear.jpg',
         title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: '11 000'
+        price: 11000
     }
 ];
 
@@ -97,12 +106,13 @@ export const Goods = () => {
                     <div className={stylex(styles.content)}>
                         <div className={stylex(styles.goodsContent)}>
                             {GOODS.map((goods, id: number) => (
-								<HoverGoods
-									key={id}
-									title={goods.title}
-									price={goods.price}
-									image={goods.image}
-								/>
+                                <HoverGoods
+                                    key={id}
+                                    article={goods.article}
+                                    title={goods.title}
+                                    price={goods.price}
+                                    image={goods.image}
+                                />
                             ))}
                         </div>
                         <CustomButton backgroundColor='red'>

@@ -1,18 +1,18 @@
 import stylex from '@stylexjs/stylex';
 import { colors } from '../../../variables/tokens.stylex';
-import { IBuyItem } from '../Header.interface';
-
+import { IGoods } from '../../Goods/Goods';
+import { GoodsState } from '../../../store';
 
 const styles = stylex.create({
     card: {
         display: 'flex',
         justifyContent: 'space-around',
-        padding: '25px 0'
+        alignItems: 'center'
     },
     infoProduct: {
         display: 'flex',
         flexDirection: 'column',
-        gap: '14px',
+        gap: '14px'
     },
     title: {
         color: colors.text,
@@ -30,30 +30,34 @@ const styles = stylex.create({
     },
     img: {
         width: '100px',
-        height: '57px',
-		marginRight: '50px'
+        height: '100px'
     },
     trash: {
         width: '20px',
-		height: '20px',
-		margin: ' 0 10px 0 50px',
-		cursor: 'pointer'
+        height: '20px',
+        cursor: 'pointer'
     }
 });
 
-export const ByuItem = ({title, price}: IBuyItem) => {
+export const ByuItem = ({ title, price, image, article }: IGoods) => {
+    const goods = GoodsState(state => state.goods);
+    const updateGoods = GoodsState(state => state.updateGoods);
+
+    const deleteWithBasket = () => {
+        return goods.filter(item => item.article !== article);
+    };
+
     return (
         <div className={stylex(styles.card)}>
-            <img
-                className={stylex(styles.img)}
-                src='/src/Layout/Header/components/product_img.png'
-                alt=''
-            />
+            <img className={stylex(styles.img)} src={image} alt={image} />
             <div className={stylex(styles.infoProduct)}>
                 <h4 className={stylex(styles.title)}>{title}</h4>
                 <p className={stylex(styles.price)}>{price}</p>
             </div>
-            <div className={stylex(styles.trash)}>
+            <div
+                onClick={() => updateGoods(deleteWithBasket())}
+                className={stylex(styles.trash)}
+            >
                 <svg
                     width='20'
                     height='20'

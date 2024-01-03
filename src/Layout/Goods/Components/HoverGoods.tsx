@@ -2,57 +2,60 @@ import stylex from '@stylexjs/stylex';
 import { colors } from '../../../variables/tokens.stylex';
 import { CustomButton } from '../../../helpers/CustomButton';
 import { IGoods } from '../Goods';
-
+import { GoodsState } from '../../../store';
 
 const styles = stylex.create({
-	goodsWrapper: {
-			position: 'relative',
-			display: 'flex',
-			flexDirection: 'column',
-			gap: '10px'
-		},
-		goodsImg: {
-			width: '280px',
-			height: '280px'
-		},
-		goodsTitle: {
-			maxWidth: '300px'
-		},
-		goodsPrice: {
-			fontSize: '20px',
-			fontWeight: 400,
-			color: colors.text
-		},
-		goodsHover: {
-			display: 'flex',
-			justifyContent: 'space-evenly',
-			alignItems: 'center',
-			position: 'absolute',
-			top: 0,
-			left: 0,
-			width: '280px',
-			height: '280px',
-			backgroundColor: colors.text_main,
-			opacity: 0,
-			zIndex: 100,
-			':hover': {
-				opacity: 0.8
-			}
-		},
-		goodsCircle: {
-			display: 'flex',
-			justifyContent: 'center',
-			alignItems: 'center',
-			width: '80px',
-			height: '80px',
-			borderRadius: '100%',
-			padding: 0,
-			zIndex: 200,
-			cursor: 'pointer'
-		}
-})
+    goodsWrapper: {
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px'
+    },
+    goodsImg: {
+        width: '280px',
+        height: '280px'
+    },
+    goodsTitle: {
+        maxWidth: '300px'
+    },
+    goodsPrice: {
+        fontSize: '20px',
+        fontWeight: 400,
+        color: colors.text
+    },
+    goodsHover: {
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '280px',
+        height: '280px',
+        backgroundColor: colors.text_main,
+        opacity: 0,
+        zIndex: 100,
+        ':hover': {
+            opacity: 0.8
+        }
+    },
+    goodsCircle: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '80px',
+        height: '80px',
+        borderRadius: '100%',
+        padding: 0,
+        zIndex: 200,
+        cursor: 'pointer'
+    }
+});
 
-export const HoverGoods = ({ title, price, image }: IGoods) => {
+export const HoverGoods = ({ title, price, image, article }: IGoods) => {
+    const goods = GoodsState(state => state.goods);
+    const updateGoods = GoodsState(state => state.updateGoods);
+
     return (
         <div className={stylex(styles.goodsWrapper)}>
             <img className={stylex(styles.goodsImg)} src={image} alt={image} />
@@ -93,6 +96,12 @@ export const HoverGoods = ({ title, price, image }: IGoods) => {
                 <CustomButton
                     backgroundColor='gray'
                     className={styles.goodsCircle}
+                    onClick={() =>
+                        updateGoods([
+                            ...goods,
+                            { title, image, price, article }
+                        ])
+                    }
                 >
                     <svg
                         xmlns='http://www.w3.org/2000/svg'

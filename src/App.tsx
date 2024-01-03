@@ -4,8 +4,8 @@ import { Goods } from './Layout/Goods/Goods';
 
 const styles = stylex.create({
     wrapper: {
-        fontFamily: 'Oswald, sans-serif',
-    },
+        fontFamily: 'Oswald, sans-serif'
+    }
 });
 
 function App() {

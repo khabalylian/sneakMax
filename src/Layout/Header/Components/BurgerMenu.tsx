@@ -1,14 +1,21 @@
 import stylex from '@stylexjs/stylex';
 import { colors } from '../../../variables/tokens.stylex';
 
+interface IBurgerMenu {
+    openBurgerMenu: boolean;
+	handleBurger: () => void;
+}
+
 const styles = stylex.create({
     burgerMenu: {
+		position: 'sticky',
         display: 'flex',
         flexDirection: 'column',
         gap: '5px',
         cursor: 'pointer',
         transition: 'all 0.3s ease',
-        overflow: 'hidden'
+        overflow: 'hidden',
+		zIndex: 1000
     },
     menu: {
         width: '30px',
@@ -30,8 +37,9 @@ const styles = stylex.create({
         display: 'flex',
         flexDirection: 'column',
         gap: '10px',
+        width: 'max-content',
         color: 'white',
-		padding: '10px 30px 30px 15px',
+        padding: '10px 30px 30px 15px',
         margin: '0px'
     },
     visible: {
@@ -42,39 +50,44 @@ const styles = stylex.create({
     },
     content: {
         position: 'absolute',
-        top: '30px',
-        left: '-60px',
-        backgroundColor: colors.text
+        top: 0,
+        left: 0,
+        backgroundColor: colors.text,
+        zIndex: 200,
+        width: '100%',
+        height: '100vh'
     },
     listItem: {
-		margin: 0,
-		':hover': {
-			color: colors.small_text
-		}
-	}
+        margin: 0,
+        ':hover': {
+            color: colors.small_text
+        }
+    }
 });
 
-export const BurgerMenu = ({ openBurgerMenu }: { openBurgerMenu: boolean }) => {
+export const BurgerMenu = ({ openBurgerMenu, handleBurger }: IBurgerMenu) => {
     return (
-        <div className={stylex(styles.burgerMenu)}>
-            <span
-                className={stylex(
-                    styles.menu,
-                    openBurgerMenu ? styles.spanFirst : null
-                )}
-            ></span>
-            <span
-                className={stylex(
-                    styles.menu,
-                    openBurgerMenu ? styles.spanSecond : null
-                )}
-            ></span>
-            <span
-                className={stylex(
-                    styles.menu,
-                    openBurgerMenu ? styles.spanThird : null
-                )}
-            ></span>
+        <>
+            <div className={stylex(styles.burgerMenu)} onClick={handleBurger}>
+                <span
+                    className={stylex(
+                        styles.menu,
+                        openBurgerMenu ? styles.spanFirst : null
+                    )}
+                ></span>
+                <span
+                    className={stylex(
+                        styles.menu,
+                        openBurgerMenu ? styles.spanSecond : null
+                    )}
+                ></span>
+                <span
+                    className={stylex(
+                        styles.menu,
+                        openBurgerMenu ? styles.spanThird : null
+                    )}
+                ></span>
+            </div>
             <div
                 className={stylex(
                     styles.content,
@@ -85,8 +98,12 @@ export const BurgerMenu = ({ openBurgerMenu }: { openBurgerMenu: boolean }) => {
                     <ul className={stylex(styles.list)}>
                         <li className={stylex(styles.listItem)}>Каталог</li>
                         <li className={stylex(styles.listItem)}>О нас</li>
-                        <li className={stylex(styles.listItem)}>Подбор товара</li>
-                        <li className={stylex(styles.listItem)}>Наша команда</li>
+                        <li className={stylex(styles.listItem)}>
+                            Подбор товара
+                        </li>
+                        <li className={stylex(styles.listItem)}>
+                            Наша команда
+                        </li>
                         <li className={stylex(styles.listItem)}>
                             Доставка и оплата
                         </li>
@@ -95,6 +112,6 @@ export const BurgerMenu = ({ openBurgerMenu }: { openBurgerMenu: boolean }) => {
                     </ul>
                 </nav>
             </div>
-        </div>
+        </>
     );
 };

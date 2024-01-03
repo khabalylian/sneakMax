@@ -5,10 +5,12 @@ import { CustomButton } from '../../helpers/CustomButton';
 
 const styles = stylex.create({
     header: {
+        position: 'relative',
         backgroundColor: colors.bg_purple,
         color: colors.text_main
     },
     container: {
+        position: 'relative',
         maxWidth: containers.width,
         margin: containers.margin,
         padding: containers.padding
