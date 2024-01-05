@@ -40,11 +40,11 @@ const styles = stylex.create({
 });
 
 export const ByuItem = ({ title, price, image, article }: IGoods) => {
-    const goods = GoodsState(state => state.goods);
-    const updateGoods = GoodsState(state => state.updateGoods);
+    const busketGoods = GoodsState(state => state.busketGoods);
+    const updateGoods = GoodsState(state => state.updateBusketGoods);
 
     const deleteWithBasket = () => {
-        return goods.filter(item => item.article !== article);
+        return busketGoods.filter(item => item.article !== article);
     };
 
     return (

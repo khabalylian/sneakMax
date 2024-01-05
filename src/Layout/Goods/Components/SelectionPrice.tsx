@@ -1,11 +1,11 @@
 import stylex from '@stylexjs/stylex';
 import Slider from '@mui/material/Slider';
-import { MouseEvent, useMemo, useState } from 'react';
+import { MouseEvent, useEffect, useMemo, useState } from 'react';
 import { Box } from '@mui/material';
 import { colors } from '../../../variables/tokens.stylex';
 import { Checkbox } from '../../../helpers/Checkbox';
 import { CustomButton } from '../../../helpers/CustomButton';
-
+import { GoodsState } from '../../../store';
 interface ISize {
     numberSize: number;
     inStock: boolean;
@@ -27,7 +27,7 @@ const styles = stylex.create({
     selection: {
         display: 'flex',
         flexDirection: 'column',
-		alignItems: 'center',
+        alignItems: 'center',
         maxWidth: '280px',
         color: colors.text
     },
@@ -59,7 +59,7 @@ const styles = stylex.create({
         width: '50px'
     },
     gender: {
-		width: '240px',
+        width: '240px',
         marginTop: '20px'
     },
     genderWrapper: {
@@ -103,8 +103,12 @@ const styles = stylex.create({
 });
 
 export const SelectionPrice = () => {
+    const goods = GoodsState(state => state.goods);
+    const updateFilteredGoods = GoodsState(state => state.updateFilteredGoods);
+
     const [value, setValue] = useState<number[]>([20, 10000]);
     const [sizeActive, setSizeActive] = useState<number[]>([]);
+    const [gender, setGender] = useState<string[]>([]);
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
@@ -156,6 +160,38 @@ export const SelectionPrice = () => {
         });
     };
 
+    const getInfoGender = useMemo(
+        () => (name: string) => {
+            if (gender.includes(name)) {
+                const filterGender = gender.filter(gender => gender !== name);
+                setGender(filterGender);
+            } else {
+                setGender([...gender, name]);
+            }
+        },
+        [gender]
+    );
+
+    const filterGoods = () => {
+        const filteredGoods = goods.filter(
+            item => item.price >= value[0] && item.price <= value[1]
+        );
+        const filteredGender =
+            filteredGoods && gender.length
+                ? filteredGoods.filter(item => gender.includes(item.gender))
+                : filteredGoods;
+        const filteredSize =
+            filteredGender && sizeActive.length
+                ? filteredGender.filter(item => sizeActive.includes(item.size))
+                : filteredGender;
+
+        updateFilteredGoods(filteredSize);
+    };
+
+    useEffect(() => {
+        updateFilteredGoods(goods);
+    }, []);
+
     return (
         <div className={stylex(styles.selection)}>
             <h3 className={stylex(styles.title)}>Подбор по параметрам</h3>
@@ -186,8 +222,22 @@ export const SelectionPrice = () => {
             <div className={stylex(styles.gender)}>
                 <p>Пол</p>
                 <div className={stylex(styles.genderWrapper)}>
-                    <Checkbox name='man' text='Мужской' />
-                    <Checkbox name='woman' text='Женский' />
+                    <Checkbox
+                        gender={gender}
+                        name='male'
+                        text='Мужской'
+                        onChange={e =>
+                            getInfoGender((e.target as HTMLInputElement).name)
+                        }
+                    />
+                    <Checkbox
+                        gender={gender}
+                        name='female'
+                        text='Женский'
+                        onChange={e =>
+                            getInfoGender((e.target as HTMLInputElement).name)
+                        }
+                    />
                 </div>
             </div>
             <div className={stylex(styles.size)}>
@@ -198,12 +248,19 @@ export const SelectionPrice = () => {
             </div>
             <div className={stylex(styles.groupBtn)}>
                 <CustomButton
+                    onClick={filterGoods}
                     backgroundColor='gray'
                     className={styles.btn}
                 >
                     Применить
                 </CustomButton>
                 <CustomButton
+                    onClick={() => {
+                        updateFilteredGoods(goods);
+                        setValue([20, 10000]);
+                        setSizeActive([]);
+                        setGender([]);
+                    }}
                     backgroundColor='white'
                     className={styles.btn}
                 >

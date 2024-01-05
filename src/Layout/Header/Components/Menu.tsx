@@ -5,6 +5,7 @@ import { colors } from '../../../variables/tokens.stylex';
 import { BurgerMenu } from './BurgerMenu';
 import { GoodsState } from '../../../store';
 import { IGoods } from '../../Goods/Goods';
+import { PlaceOrder } from './PlaceOrder';
 
 const MEDIA_WIDTH_576 = '@media (max-width: 576px)';
 
@@ -72,8 +73,9 @@ export const Menu = () => {
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const [openBurgerMenu, setOpenBurgerMenu] = useState<boolean>(false);
+    const [showPlaceOrder, setShowPlaceOrder] = useState<boolean>(false);
 
-    const goods = GoodsState(state => state.goods);
+    const busketGoods = GoodsState(state => state.busketGoods);
     const countGoods = GoodsState(state => state.countGoods);
     const updateCount = GoodsState(state => state.updateCount);
 
@@ -82,9 +84,9 @@ export const Menu = () => {
     };
 
     useEffect(() => {
-        setTotalPrice(sumPrice(goods));
-        updateCount(goods.length);
-    }, [goods]);
+        setTotalPrice(sumPrice(busketGoods));
+        updateCount(busketGoods.length);
+    }, [busketGoods]);
 
     const handleOpen = () => {
         setOpenModal(true);
@@ -134,17 +136,26 @@ export const Menu = () => {
                         fill='white'
                     />
                 </svg>
-                <span
-                    onClick={handleOpen}
-                    className={stylex(styles.busketCounter)}
-                >
-                    {countGoods}
-                </span>
+                {countGoods ? (
+                    <span
+                        onClick={handleOpen}
+                        className={stylex(styles.busketCounter)}
+                    >
+                        {countGoods}
+                    </span>
+                ) : null}
             </div>
             {openModal && (
                 <BasketModal
                     totalPrice={totalPrice}
                     handleClose={handleClose}
+                    setShowPlaceOrder={setShowPlaceOrder}
+                />
+            )}
+            {showPlaceOrder && (
+                <PlaceOrder
+                    setShowPlaceOrder={setShowPlaceOrder}
+                    totalPrice={totalPrice}
                 />
             )}
         </div>

@@ -52,9 +52,9 @@ const styles = stylex.create({
     }
 });
 
-export const HoverGoods = ({ title, price, image, article }: IGoods) => {
-    const goods = GoodsState(state => state.goods);
-    const updateGoods = GoodsState(state => state.updateGoods);
+export const HoverGoods = ({ title, price, image, article, size, gender }: IGoods) => {
+    const busketGoods = GoodsState(state => state.busketGoods);
+    const updateBusketGoods = GoodsState(state => state.updateBusketGoods);
 
     return (
         <div className={stylex(styles.goodsWrapper)}>
@@ -97,9 +97,9 @@ export const HoverGoods = ({ title, price, image, article }: IGoods) => {
                     backgroundColor='gray'
                     className={styles.goodsCircle}
                     onClick={() =>
-                        updateGoods([
-                            ...goods,
-                            { title, image, price, article }
+                        updateBusketGoods([
+                            ...busketGoods,
+                            { title, image, price, article, size, gender }
                         ])
                     }
                 >

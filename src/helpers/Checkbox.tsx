@@ -1,10 +1,15 @@
 import stylex from '@stylexjs/stylex';
 import { colors } from '../variables/tokens.stylex';
-import { useState } from 'react';
+import { ButtonHTMLAttributes, DetailedHTMLProps} from 'react';
 
-interface ICheckbox {
+interface ICheckbox
+    extends DetailedHTMLProps<
+        ButtonHTMLAttributes<HTMLDivElement>,
+        HTMLDivElement
+    > {
     name: string;
-	text: string;
+    text: string;
+	gender: string[];
 }
 
 const styles = stylex.create({
@@ -29,22 +34,20 @@ const styles = stylex.create({
     }
 });
 
-export const Checkbox = ({ name, text }: ICheckbox) => {
-    const [isChecked, setIsChecked] = useState(false);
-
-    const handleCheckboxChange = () => {
-        setIsChecked(!isChecked);
-    };
-
+export const Checkbox = ({
+    name,
+    text,
+	gender,
+    ...props
+}: ICheckbox) => {
     return (
-        <div className={stylex(styles.wrapper)}>
+        <div className={stylex(styles.wrapper)} {...props}>
             <input
                 className={stylex(styles.checkbox)}
                 type='checkbox'
-                checked={isChecked}
+                checked={gender.includes(name)}
                 name={name}
                 id={name}
-                onChange={handleCheckboxChange}
             />
             <label htmlFor={name}>{text}</label>
         </div>

@@ -3,69 +3,16 @@ import { colors, containers } from '../../variables/tokens.stylex';
 import { SelectionPrice } from './Components/SelectionPrice';
 import { CustomButton } from '../../helpers/CustomButton';
 import { HoverGoods } from './Components/HoverGoods';
+import { GoodsState } from '../../store';
 export interface IGoods {
     article: string;
     image: string;
     title: string;
+	size: number;
     price: number;
+	gender: 'male' | 'female';
 }
 
-const GOODS: IGoods[] = [
-    {
-        article: '2331Acvf2',
-        image: 'src/Layout/Goods/img/footwear.jpg',
-        title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: 11342
-    },
-    {
-        article: '231423f2',
-        image: 'src/Layout/Goods/img/footwear.jpg',
-        title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: 123
-    },
-    {
-        article: '232fdGcvf2',
-        image: 'src/Layout/Goods/img/footwear.jpg',
-        title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: 564
-    },
-    {
-        article: '4123w2WWf2',
-        image: 'src/Layout/Goods/img/footwear.jpg',
-        title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: 11000
-    },
-    {
-        article: '2511Ac54Gf2',
-        image: 'src/Layout/Goods/img/footwear.jpg',
-        title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: 11000
-    },
-    {
-        article: '7612433f2',
-        image: 'src/Layout/Goods/img/footwear.jpg',
-        title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: 11000
-    },
-    {
-        article: '643asWWavf2',
-        image: 'src/Layout/Goods/img/footwear.jpg',
-        title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: 11000
-    },
-    {
-        article: '63jkhHvf2',
-        image: 'src/Layout/Goods/img/footwear.jpg',
-        title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: 11000
-    },
-    {
-        article: '1332vf2',
-        image: 'src/Layout/Goods/img/footwear.jpg',
-        title: 'Кроссовки Nike Air Force 1 "07 QS"',
-        price: 11000
-    }
-];
 
 const styles = stylex.create({
     goods: {
@@ -84,19 +31,26 @@ const styles = stylex.create({
         gap: '20px'
     },
     content: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '40px'
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'center',
+		gap: '40px',
+		width: '100%'
     },
     goodsContent: {
         display: 'flex',
         flexWrap: 'wrap',
-        gap: '20px'
-    }
+        gap: '20px',
+		height: '1075px'
+    },
+	btn: {
+		margin: '0 auto'
+	}
 });
 
 export const Goods = () => {
+	const filteredGoods = GoodsState(state => state.filteredGoods);
+
     return (
         <section className={stylex(styles.goods)}>
             <div className={stylex(styles.container)}>
@@ -105,19 +59,16 @@ export const Goods = () => {
                     <SelectionPrice />
                     <div className={stylex(styles.content)}>
                         <div className={stylex(styles.goodsContent)}>
-                            {GOODS.map((goods, id: number) => (
-                                <HoverGoods
-                                    key={id}
-                                    article={goods.article}
-                                    title={goods.title}
-                                    price={goods.price}
-                                    image={goods.image}
-                                />
+                            {filteredGoods.map((goods, id: number) => (
+                                <HoverGoods key={id} {...goods} />
                             ))}
                         </div>
-                        <CustomButton backgroundColor='red'>
-                            Показать еще
-                        </CustomButton>
+						<CustomButton
+							className={styles.btn}
+							backgroundColor='red'
+						>
+							Показать еще
+						</CustomButton>
                     </div>
                 </div>
             </div>

@@ -8,6 +8,7 @@ import { GoodsState } from '../../../store';
 interface IBasketModal {
     totalPrice: number;
     handleClose: () => void;
+    setShowPlaceOrder: (active: boolean) => void;
 }
 
 const styles = stylex.create({
@@ -69,22 +70,20 @@ const styles = stylex.create({
     }
 });
 
-export const BasketModal = ({ totalPrice, handleClose }: IBasketModal) => {
-    const goods = GoodsState(state => state.goods);
+export const BasketModal = ({
+    totalPrice,
+    handleClose,
+    setShowPlaceOrder
+}: IBasketModal) => {
+    const busketGoods = GoodsState(state => state.busketGoods);
 
     return (
         <>
             <div className={stylex(styles.modal)} onClick={handleClose}></div>
             <div className={stylex(styles.card)}>
                 <div className={stylex(styles.listItem)}>
-                    {goods.map((item, id) => (
-                        <ByuItem
-                            key={id}
-                            article={item.article}
-                            image={item.image}
-                            title={item.title}
-                            price={item.price}
-                        />
+                    {busketGoods.map((goods, id) => (
+                        <ByuItem key={id} {...goods} />
                     ))}
                 </div>
                 <div className={stylex(styles.total)}>
@@ -92,7 +91,13 @@ export const BasketModal = ({ totalPrice, handleClose }: IBasketModal) => {
                         <span className={stylex(styles.totalSpan)}>Итого:</span>
                         {totalPrice}
                     </div>
-                    <CustomButton backgroundColor='red'>
+                    <CustomButton
+                        onClick={() => {
+                            setShowPlaceOrder(true);
+                            handleClose();
+                        }}
+                        backgroundColor='red'
+                    >
                         Перейти в корзину
                     </CustomButton>
                 </div>
