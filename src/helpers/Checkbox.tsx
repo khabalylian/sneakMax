@@ -1,6 +1,6 @@
 import stylex from '@stylexjs/stylex';
 import { colors } from '../variables/tokens.stylex';
-import { ButtonHTMLAttributes, DetailedHTMLProps} from 'react';
+import { ButtonHTMLAttributes, DetailedHTMLProps, useState} from 'react';
 
 interface ICheckbox
     extends DetailedHTMLProps<
@@ -27,7 +27,7 @@ const styles = stylex.create({
         cursor: 'pointer',
         ':checked': {
             backgroundImage:
-                'url("src/helpers/Group.svg")' /* вказати шлях до SVG файлу */,
+                'url("src/helpers/Checked.svg")' /* вказати шлях до SVG файлу */,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center center'
         }
@@ -40,6 +40,7 @@ export const Checkbox = ({
 	gender,
     ...props
 }: ICheckbox) => {
+
     return (
         <div className={stylex(styles.wrapper)} {...props}>
             <input
@@ -48,6 +49,7 @@ export const Checkbox = ({
                 checked={gender.includes(name)}
                 name={name}
                 id={name}
+                onChange={() => {}}
             />
             <label htmlFor={name}>{text}</label>
         </div>

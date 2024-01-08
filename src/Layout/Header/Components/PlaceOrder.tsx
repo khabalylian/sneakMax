@@ -3,6 +3,7 @@ import { colors } from '../../../variables/tokens.stylex';
 import { GoodsState } from '../../../store';
 import { ByuItem } from './BuyItem';
 import { CustomButton } from '../../../helpers/CustomButton';
+import { ModalBackground } from '../../../helpers/ModalBackground';
 
 interface IPlaceOrder {
     totalPrice: number;
@@ -10,17 +11,6 @@ interface IPlaceOrder {
 }
 
 const styles = stylex.create({
-    modal: {
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        width: '100vw',
-        height: '100vh',
-        transform: 'translate(-50%, -50%)',
-        backgroundColor: 'black',
-        opacity: 0.35,
-        zIndex: 500
-    },
     order: {
         display: 'flex',
         flexDirection: 'column',
@@ -99,10 +89,7 @@ export const PlaceOrder = ({ setShowPlaceOrder, totalPrice }: IPlaceOrder) => {
 
     return (
         <>
-            <div
-                onClick={() => setShowPlaceOrder(false)}
-                className={stylex(styles.modal)}
-            ></div>
+            <ModalBackground onClick={() => setShowPlaceOrder(false)} />
             <div className={stylex(styles.order)}>
                 <div className={stylex(styles.headerInfo)}>
                     <p className={stylex(styles.headerTitle)}>

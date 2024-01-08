@@ -110,6 +110,8 @@ export const SelectionPrice = () => {
     const [sizeActive, setSizeActive] = useState<number[]>([]);
     const [gender, setGender] = useState<string[]>([]);
 
+	console.log(gender)
+
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
     };
@@ -174,15 +176,15 @@ export const SelectionPrice = () => {
 
     const filterGoods = () => {
         const filteredGoods = goods.filter(
-            item => item.price >= value[0] && item.price <= value[1]
+            item => item.data.price >= value[0] && item.data.price <= value[1]
         );
         const filteredGender =
             filteredGoods && gender.length
-                ? filteredGoods.filter(item => gender.includes(item.gender))
+                ? filteredGoods.filter(item => gender.includes(item.data.gender))
                 : filteredGoods;
         const filteredSize =
             filteredGender && sizeActive.length
-                ? filteredGender.filter(item => sizeActive.includes(item.size))
+                ? filteredGender.filter(item => sizeActive.includes(item.data.size))
                 : filteredGender;
 
         updateFilteredGoods(filteredSize);

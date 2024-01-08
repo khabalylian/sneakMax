@@ -8,9 +8,20 @@ export interface IGoods {
     article: string;
     image: string;
     title: string;
-	size: number;
-    price: number;
-	gender: 'male' | 'female';
+	data: {
+		size: number;
+		price: number;
+		gender: 'male' | 'female';
+		color: string;
+		contents: string;
+		country: string;
+		description: string;
+		inStockSize: {
+			size: number;
+			count: number;
+		}[],
+		count: number;
+	}
 }
 
 

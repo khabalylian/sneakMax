@@ -39,7 +39,7 @@ const styles = stylex.create({
     }
 });
 
-export const ByuItem = ({ title, price, image, article }: IGoods) => {
+export const ByuItem = ({ title, image, article, data }: IGoods) => {
     const busketGoods = GoodsState(state => state.busketGoods);
     const updateGoods = GoodsState(state => state.updateBusketGoods);
 
@@ -52,7 +52,7 @@ export const ByuItem = ({ title, price, image, article }: IGoods) => {
             <img className={stylex(styles.img)} src={image} alt={image} />
             <div className={stylex(styles.infoProduct)}>
                 <h4 className={stylex(styles.title)}>{title}</h4>
-                <p className={stylex(styles.price)}>{price}</p>
+                <p className={stylex(styles.price)}>{data.price}</p>
             </div>
             <div
                 onClick={() => updateGoods(deleteWithBasket())}

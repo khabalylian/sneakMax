@@ -80,7 +80,7 @@ export const Menu = () => {
     const updateCount = GoodsState(state => state.updateCount);
 
     const sumPrice = (goods: IGoods[]) => {
-        return goods.reduce((acc, product) => (acc += product.price), 0);
+        return goods.reduce((acc, product) => (acc += product.data.price), 0);
     };
 
     useEffect(() => {

@@ -3,6 +3,8 @@ import { colors } from '../../../variables/tokens.stylex';
 import { CustomButton } from '../../../helpers/CustomButton';
 import { IGoods } from '../Goods';
 import { GoodsState } from '../../../store';
+import { useState } from 'react';
+import { CardOrderGoods } from './CardGoods';
 
 const styles = stylex.create({
     goodsWrapper: {
@@ -52,17 +54,20 @@ const styles = stylex.create({
     }
 });
 
-export const HoverGoods = ({ title, price, image, article, size, gender }: IGoods) => {
+export const HoverGoods = ({article, title, image, data }: IGoods) => {
     const busketGoods = GoodsState(state => state.busketGoods);
     const updateBusketGoods = GoodsState(state => state.updateBusketGoods);
+
+	const [showCardGoods, setShowCardGoods] = useState<boolean>(false);
 
     return (
         <div className={stylex(styles.goodsWrapper)}>
             <img className={stylex(styles.goodsImg)} src={image} alt={image} />
             <p className={stylex(styles.goodsTitle)}>{title}</p>
-            <div className={stylex(styles.goodsPrice)}>{price} Грн</div>
+            <div className={stylex(styles.goodsPrice)}>{data.price} Грн</div>
             <div className={stylex(styles.goodsHover)}>
                 <CustomButton
+                    onClick={() => setShowCardGoods(true)}
                     backgroundColor='gray'
                     className={styles.goodsCircle}
                 >
@@ -99,7 +104,7 @@ export const HoverGoods = ({ title, price, image, article, size, gender }: IGood
                     onClick={() =>
                         updateBusketGoods([
                             ...busketGoods,
-                            { title, image, price, article, size, gender }
+                            { article, title, image, data }
                         ])
                     }
                 >
@@ -117,6 +122,12 @@ export const HoverGoods = ({ title, price, image, article, size, gender }: IGood
                     </svg>
                 </CustomButton>
             </div>
+            {showCardGoods && (
+                <CardOrderGoods
+                    setShowCardGoods={setShowCardGoods}
+                    dataGoods={{ article, title, image, data }}
+                />
+            )}
         </div>
     );
 };

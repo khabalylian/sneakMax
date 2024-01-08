@@ -4,6 +4,7 @@ import { CustomButton } from '../../../helpers/CustomButton';
 
 import { colors } from '../../../variables/tokens.stylex';
 import { GoodsState } from '../../../store';
+import { ModalBackground } from '../../../helpers/ModalBackground';
 
 interface IBasketModal {
     totalPrice: number;
@@ -12,17 +13,6 @@ interface IBasketModal {
 }
 
 const styles = stylex.create({
-    modal: {
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        width: '100vw',
-        height: '100vh',
-        transform: 'translate(-50%, -50%)',
-        backgroundColor: 'black',
-        opacity: 0.35,
-        zIndex: 1000
-    },
     card: {
         position: 'absolute',
         top: '64px',
@@ -79,7 +69,7 @@ export const BasketModal = ({
 
     return (
         <>
-            <div className={stylex(styles.modal)} onClick={handleClose}></div>
+            <ModalBackground onClick={handleClose} />
             <div className={stylex(styles.card)}>
                 <div className={stylex(styles.listItem)}>
                     {busketGoods.map((goods, id) => (

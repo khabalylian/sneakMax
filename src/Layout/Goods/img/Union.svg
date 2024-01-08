@@ -1,0 +1,18 @@
+<svg width="104" height="91" viewBox="0 0 104 91" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Union" filter="url(#filter0_d_71_604)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4.42182 14.2121C4 15.0563 4 16.1575 4 18.36V49.64C4 51.8425 4 52.9437 4.42182 53.7879C4.80899 54.5628 5.43723 55.191 6.21209 55.5782C7.05628 56 8.15752 56 10.36 56H45.3767C47.9871 60.0532 50.6456 63 52.1468 63C53.648 63 56.3066 60.0532 58.9169 56H92.64C94.8425 56 95.9437 56 96.7879 55.5782C97.5628 55.191 98.191 54.5628 98.5782 53.7879C99 52.9437 99 51.8425 99 49.64V18.36C99 16.1575 99 15.0563 98.5782 14.2121C98.191 13.4372 97.5628 12.809 96.7879 12.4218C95.9437 12 94.8425 12 92.64 12H10.36C8.15752 12 7.05628 12 6.21209 12.4218C5.43723 12.809 4.80899 13.4372 4.42182 14.2121Z" fill="#444B58"/>
+<text font-size="14" fill="white" y='30' x='10' font-family="Oswald">Розміра немає</text>
+<text font-size="14" fill="white" y='45' x='15' font-family="Oswald">в наявності</text>
+</g>
+<defs>
+<filter id="filter0_d_71_604" x="-12" y="0" width="135" height="91" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="4" dy="8"/>
+<feGaussianBlur stdDeviation="10"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0.0514323 0 0 0 0 0.329167 0 0 0 0.2 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_71_604"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_71_604" result="shape"/>
+</filter>
+</defs>
+</svg>
