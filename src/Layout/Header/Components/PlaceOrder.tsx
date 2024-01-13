@@ -5,6 +5,8 @@ import { ByuItem } from './BuyItem';
 import { CustomButton } from '../../../helpers/CustomButton';
 import { ModalBackground } from '../../../helpers/ModalBackground';
 
+const MEDIA_WIDTH_576 = '@media (max-width: 576px)';
+const MEDIA_WIDTH_480 = '@media (max-width: 480px)';
 interface IPlaceOrder {
     totalPrice: number;
     setShowPlaceOrder: (active: boolean) => void;
@@ -14,20 +16,38 @@ const styles = stylex.create({
     order: {
         display: 'flex',
         flexDirection: 'column',
-        gap: '30px',
+        gap: {
+            default: '30px',
+            [MEDIA_WIDTH_480]: '10px'
+        },
         position: 'fixed',
-        width: '580px',
-        height: '900px',
+        width: {
+            default: '580px',
+            [MEDIA_WIDTH_576]: {
+                default: '480px',
+                [MEDIA_WIDTH_480]: '300px'
+            }
+        },
+        height: {
+            default: '900px',
+            [MEDIA_WIDTH_480]: 'auto'
+        },
         backgroundColor: colors.text_main,
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        padding: '40px',
+        padding: {
+            default: '40px',
+            [MEDIA_WIDTH_480]: '10px'
+        },
         zIndex: 1000
     },
     headerInfo: {
         display: 'flex',
-        gap: '200px'
+        gap: {
+            default: '200px',
+            [MEDIA_WIDTH_480]: '20px'
+        }
     },
     headerTitle: {
         fontSize: '20px',
@@ -46,7 +66,10 @@ const styles = stylex.create({
         gap: '20px',
         borderRadius: '4px',
         border: `1px solid ${colors.small_text}`,
-        padding: '30px'
+        padding: {
+            default: '30px',
+            [MEDIA_WIDTH_480]: '10px'
+        }
     },
     wrapperTitle: {
         color: colors.small_text
@@ -80,6 +103,31 @@ const styles = stylex.create({
         color: colors.text,
         fontWeight: 700,
         marginLeft: '10px'
+    },
+    wrapperOrderItem: {
+        display: 'flex',
+        flexDirection: {
+            default: 'row',
+            [MEDIA_WIDTH_480]: 'column'
+        },
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        textAlign: {
+            default: 'start',
+            [MEDIA_WIDTH_480]: 'center !important'
+        },
+        gap: {
+            default: '14px',
+            [MEDIA_WIDTH_480]: '5px'
+        },
+        borderBottom: {
+            default: 'none',
+            [MEDIA_WIDTH_480]: `1px solid ${colors.small_text}`
+        },
+        paddingBottom: {
+            default: '0',
+            [MEDIA_WIDTH_480]: '5px'
+        }
     }
 });
 
@@ -93,27 +141,33 @@ export const PlaceOrder = ({ setShowPlaceOrder, totalPrice }: IPlaceOrder) => {
             <div className={stylex(styles.order)}>
                 <div className={stylex(styles.headerInfo)}>
                     <p className={stylex(styles.headerTitle)}>
-                        Оформление заказа
+                        Оформлення заказу
                     </p>
                     <p className={stylex(styles.headerOrder)}>Заказ 3456 67</p>
                 </div>
                 <div className={stylex(styles.wrapper)}>
                     <p className={stylex(styles.wrapperTitle)}>
-                        Товаров в заказе:
+                        Товарів в заказі:
                         <span className={stylex(styles.wrapperSpan)}>
                             {totalPrice}
                         </span>
                     </p>
                     <p className={stylex(styles.wrapperTitle)}>
-                        Общая сумма заказа:
+                        Загальна сума заказу:
                         <span className={stylex(styles.wrapperSpan)}>
                             {countGoods} шт.
                         </span>
                     </p>
-                    <p className={stylex(styles.orderTitle)}>Состав заказа:</p>
+                    <p className={stylex(styles.orderTitle)}>
+                        Склад замовлення:
+                    </p>
                     <div className={stylex(styles.wrapperOrder)}>
                         {busketGoods.map(goods => (
-                            <ByuItem key={goods.article} {...goods} />
+                            <ByuItem
+                                key={goods.article}
+                                className={stylex(styles.wrapperOrderItem)}
+                                {...goods}
+                            />
                         ))}
                     </div>
                 </div>
@@ -121,7 +175,7 @@ export const PlaceOrder = ({ setShowPlaceOrder, totalPrice }: IPlaceOrder) => {
                     <input
                         className={stylex(styles.formInput)}
                         type='text'
-                        placeholder='Ваше имя'
+                        placeholder='Ваше імя'
                     />
                     <input
                         className={stylex(styles.formInput)}

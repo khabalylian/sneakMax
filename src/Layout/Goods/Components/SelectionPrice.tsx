@@ -6,9 +6,16 @@ import { colors } from '../../../variables/tokens.stylex';
 import { Checkbox } from '../../../helpers/Checkbox';
 import { CustomButton } from '../../../helpers/CustomButton';
 import { GoodsState } from '../../../store';
+
+const MEDIA_WIDTH_576 = '@media (max-width: 576px)';
 interface ISize {
     numberSize: number;
     inStock: boolean;
+}
+
+interface ISelectionPrice {
+    showSelection: boolean;
+    setShowSelection: (toggle: boolean) => void;
 }
 
 const SIZE: ISize[] = [
@@ -25,11 +32,29 @@ const SIZE: ISize[] = [
 
 const styles = stylex.create({
     selection: {
-        display: 'flex',
+        position: {
+            default: 'none',
+            [MEDIA_WIDTH_576]: 'absolute'
+        },
+        top: 0,
+        left: 0,
+        display: {
+            default: 'flex',
+            [MEDIA_WIDTH_576]: 'none'
+        },
         flexDirection: 'column',
         alignItems: 'center',
         maxWidth: '280px',
-        color: colors.text
+        color: colors.text,
+        backgroundColor: {
+            default: 'inherit',
+            [MEDIA_WIDTH_576]: '#968edf'
+        },
+		borderRadius: {
+			default: 0,
+			[MEDIA_WIDTH_576]: '5px'
+		},
+        zIndex: 101
     },
     title: {
         color: colors.text,
@@ -99,18 +124,22 @@ const styles = stylex.create({
     btn: {
         width: '100%',
         border: 'none'
+    },
+    showSelect: {
+        display: 'flex'
     }
 });
 
-export const SelectionPrice = () => {
+export const SelectionPrice = ({
+    showSelection,
+    setShowSelection
+}: ISelectionPrice) => {
     const goods = GoodsState(state => state.goods);
     const updateFilteredGoods = GoodsState(state => state.updateFilteredGoods);
 
     const [value, setValue] = useState<number[]>([20, 10000]);
     const [sizeActive, setSizeActive] = useState<number[]>([]);
     const [gender, setGender] = useState<string[]>([]);
-
-	console.log(gender)
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
@@ -180,11 +209,15 @@ export const SelectionPrice = () => {
         );
         const filteredGender =
             filteredGoods && gender.length
-                ? filteredGoods.filter(item => gender.includes(item.data.gender))
+                ? filteredGoods.filter(item =>
+                      gender.includes(item.data.gender)
+                  )
                 : filteredGoods;
         const filteredSize =
             filteredGender && sizeActive.length
-                ? filteredGender.filter(item => sizeActive.includes(item.data.size))
+                ? filteredGender.filter(item =>
+                      sizeActive.includes(item.data.size)
+                  )
                 : filteredGender;
 
         updateFilteredGoods(filteredSize);
@@ -195,10 +228,15 @@ export const SelectionPrice = () => {
     }, []);
 
     return (
-        <div className={stylex(styles.selection)}>
-            <h3 className={stylex(styles.title)}>Подбор по параметрам</h3>
+        <div
+            className={stylex(
+                styles.selection,
+                showSelection ? styles.showSelect : null
+            )}
+        >
+            <h3 className={stylex(styles.title)}>Підбір по параметрам</h3>
             <div className={stylex(styles.price)}>
-                <p className={stylex(styles.priceTitle)}>Цена, руб</p>
+                <p className={stylex(styles.priceTitle)}>Ціна грн</p>
                 <Box width={240} marginTop={1}>
                     <div className={stylex(styles.priceView)}>
                         <p className={stylex(styles.priceNumber)}>{value[0]}</p>
@@ -222,12 +260,12 @@ export const SelectionPrice = () => {
                 </Box>
             </div>
             <div className={stylex(styles.gender)}>
-                <p>Пол</p>
+                <p>Стать</p>
                 <div className={stylex(styles.genderWrapper)}>
                     <Checkbox
                         gender={gender}
                         name='male'
-                        text='Мужской'
+                        text='Чоловічий'
                         onChange={e =>
                             getInfoGender((e.target as HTMLInputElement).name)
                         }
@@ -235,7 +273,7 @@ export const SelectionPrice = () => {
                     <Checkbox
                         gender={gender}
                         name='female'
-                        text='Женский'
+                        text='Жіночий'
                         onChange={e =>
                             getInfoGender((e.target as HTMLInputElement).name)
                         }
@@ -243,18 +281,21 @@ export const SelectionPrice = () => {
                 </div>
             </div>
             <div className={stylex(styles.size)}>
-                <p>Размер</p>
+                <p>Розмір</p>
                 <div className={stylex(styles.table)}>
                     {useMemo(() => renderSizeTabs(SIZE), [sizeActive])}
                 </div>
             </div>
             <div className={stylex(styles.groupBtn)}>
                 <CustomButton
-                    onClick={filterGoods}
+                    onClick={() => {
+                        filterGoods();
+                        setShowSelection(!showSelection);
+                    }}
                     backgroundColor='gray'
                     className={styles.btn}
                 >
-                    Применить
+                    Прийняти
                 </CustomButton>
                 <CustomButton
                     onClick={() => {
@@ -266,7 +307,7 @@ export const SelectionPrice = () => {
                     backgroundColor='white'
                     className={styles.btn}
                 >
-                    сбросить
+                    скинути
                 </CustomButton>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import stylex from '@stylexjs/stylex';
 import { colors } from '../variables/tokens.stylex';
-import { ButtonHTMLAttributes, DetailedHTMLProps, useState} from 'react';
+import { ButtonHTMLAttributes, DetailedHTMLProps} from 'react';
 
 interface ICheckbox
     extends DetailedHTMLProps<

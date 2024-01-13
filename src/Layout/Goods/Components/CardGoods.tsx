@@ -4,7 +4,10 @@ import { colors } from '../../../variables/tokens.stylex';
 import { MouseEvent, TouchEvent, useMemo, useRef, useState } from 'react';
 import { IGoods } from '../Goods';
 import { CustomButton } from '../../../helpers/CustomButton';
-
+const MEDIA_WIDTH_480 = '@media (max-width: 480px)';
+const MEDIA_WIDTH_650 = '@media (max-width: 650px)';
+const MEDIA_WIDTH_768 = '@media (max-width: 768px)';
+const MEDIA_WIDTH_991 = '@media (max-width: 991px)';
 interface ICardGoods {
     setShowCardGoods: (toggle: boolean) => void;
     dataGoods: IGoods;
@@ -14,14 +17,21 @@ const styles = stylex.create({
     card: {
         display: 'flex',
         gap: '20px',
+        flexDirection: {
+            default: 'row',
+            [MEDIA_WIDTH_650]: 'column'
+        },
         position: 'fixed',
         top: '50%',
         left: '50%',
+        height: '100%',
         transform: 'translate(-50%, -50%)',
         backgroundColor: colors.text_main,
-        width: '70%',
-        height: '90%',
         padding: '40px',
+        overflow: {
+            default: 'auto',
+            [MEDIA_WIDTH_650]: 'overlay'
+        },
         zIndex: 1000
     },
     sliderContainer: {
@@ -30,8 +40,20 @@ const styles = stylex.create({
     },
     slider: {
         position: 'relative',
-        width: '520px',
-        height: '450px'
+        width: {
+            default: '520px',
+            [MEDIA_WIDTH_991]: {
+                default: '320px',
+                [MEDIA_WIDTH_768]: '220px'
+            }
+        },
+        height: {
+            default: '450px',
+            [MEDIA_WIDTH_991]: {
+                default: '350px',
+                [MEDIA_WIDTH_768]: '250px'
+            }
+        }
     },
     sliderBtn: {
         backgroundColor: 'inherit',
@@ -41,12 +63,18 @@ const styles = stylex.create({
     },
     prev: {
         position: 'absolute',
-        left: 0,
+        left: {
+            default: 0,
+            [MEDIA_WIDTH_650]: '-10%'
+        },
         top: '50%'
     },
     next: {
         position: 'absolute',
-        right: 0,
+        right: {
+            default: 0,
+            [MEDIA_WIDTH_650]: '-10%'
+        },
         top: '50%'
     },
     sliderImg: {
@@ -73,11 +101,15 @@ const styles = stylex.create({
         maxWidth: '430px',
         marginTop: '40px'
     },
-	right: {
-		display:'flex',
-		flexDirection: 'column',
-		gap: '20px'
-	},
+    right: {
+        display: 'flex',
+        width: {
+            default: '300px',
+            [MEDIA_WIDTH_480]: '250px'
+        },
+        flexDirection: 'column',
+        gap: '20px'
+    },
     infoHeader: {
         display: 'flex',
         gap: '50px',
@@ -128,12 +160,17 @@ const styles = stylex.create({
             zIndex: 1111
         }
     },
-	price: {
-		marginTop: '20px'
-	},
-	btn: {
-		marginTop: '40px'
-	},
+    price: {
+        marginTop: '20px'
+    },
+    btn: {
+        width: '100%',
+        marginTop: '40px',
+        padding: {
+            default: '22px 47px',
+            [MEDIA_WIDTH_650]: '11px 23px'
+        }
+    },
     infoPay: {
         color: colors.small_text,
         fontSize: '14px'
@@ -147,6 +184,18 @@ const styles = stylex.create({
         display: 'flex',
         flexDirection: 'column',
         gap: '10px'
+    },
+    btnHide: {
+        display: {
+            default: 'none',
+            [MEDIA_WIDTH_650]: 'block'
+        },
+        position: 'absolute',
+        top: '10px',
+        right: '10px',
+        border: 'none',
+        padding: '5px 10px',
+        cursor: 'pointer'
     }
 });
 
@@ -221,18 +270,18 @@ export const CardOrderGoods = ({ setShowCardGoods, dataGoods }: ICardGoods) => {
     const setSizeHandler = (event: MouseEvent) => {
         const textContent = Number(event.currentTarget.textContent);
 
-		if(textContent !== null) {
-			const findSize = dataGoods.data.inStockSize.filter(
-				item => item.size === textContent
-			);
-	
-			if (size.includes(textContent)) {
-				const newSizeArray = size.filter(size => size !== textContent);
-				setSize(newSizeArray);
-			} else if (findSize[0].count && !size.includes(textContent)) {
-				setSize([...size, textContent]);
-			}
-		}
+        if (textContent !== null) {
+            const findSize = dataGoods.data.inStockSize.filter(
+                item => item.size === textContent
+            );
+
+            if (size.includes(textContent)) {
+                const newSizeArray = size.filter(size => size !== textContent);
+                setSize(newSizeArray);
+            } else if (findSize[0].count && !size.includes(textContent)) {
+                setSize([...size, textContent]);
+            }
+        }
     };
 
     const renderSize = useMemo(() => {
@@ -253,12 +302,17 @@ export const CardOrderGoods = ({ setShowCardGoods, dataGoods }: ICardGoods) => {
         ));
     }, [size]);
 
-    console.log(size);
-
     return (
         <>
             <ModalBackground onClick={() => setShowCardGoods(false)} />
             <div className={stylex(styles.card)}>
+                <CustomButton
+                    backgroundColor='red'
+                    onClick={() => setShowCardGoods(false)}
+                    className={styles.btnHide}
+                >
+                    Закрити
+                </CustomButton>
                 <div className={stylex(styles.left)}>
                     <div className={stylex(styles.sliderContainer)}>
                         <div className={stylex(styles.slider)}>
@@ -344,12 +398,9 @@ export const CardOrderGoods = ({ setShowCardGoods, dataGoods }: ICardGoods) => {
                         </div>
                     </div>
                     <h2 className={stylex(styles.price)}>
-                        {dataGoods.data.price}
+                        {dataGoods.data.price} грн.
                     </h2>
-                    <CustomButton
-                        className={styles.btn}
-                        backgroundColor='red'
-                    >
+                    <CustomButton className={styles.btn} backgroundColor='red'>
                         Заказати
                     </CustomButton>
                     <div className={stylex(styles.infoPay)}>

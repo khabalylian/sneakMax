@@ -40,17 +40,17 @@ export const Header = () => {
                 <Menu />
                 <div className={stylex(styles.content)}>
                     <h1 className={stylex(styles.title)}>
-                        Кроссовки известных брендов с доставкой по России и СНГ
+                        Кросівки відомих брендів з доставкою по Україні
                     </h1>
                     <p className={stylex(styles.paragraph)}>
-                        Мы продаем кроссовки брендов Nike, Adidas, Puma, Reebok,
-                        Converse и многие другие по низким ценам
+                        Ми продаємо кросівки брендів Nike, Adidas, Puma, Reebok,
+                        Converse та багато інших за низькими цінами
                     </p>
                     <CustomButton
                         backgroundColor='red'
                         className={styles.button}
                     >
-                        Перейти к покупкам
+                        Перейти до покупок
                     </CustomButton>
                 </div>
             </div>

@@ -3,19 +3,19 @@ import { colors } from '../../../variables/tokens.stylex';
 
 interface IBurgerMenu {
     openBurgerMenu: boolean;
-	handleBurger: () => void;
+    handleBurger: () => void;
 }
 
 const styles = stylex.create({
     burgerMenu: {
-		position: 'sticky',
+        position: 'sticky',
         display: 'flex',
         flexDirection: 'column',
         gap: '5px',
         cursor: 'pointer',
         transition: 'all 0.3s ease',
         overflow: 'hidden',
-		zIndex: 1000
+        zIndex: 1000
     },
     menu: {
         width: '30px',
@@ -97,17 +97,17 @@ export const BurgerMenu = ({ openBurgerMenu, handleBurger }: IBurgerMenu) => {
                 <nav>
                     <ul className={stylex(styles.list)}>
                         <li className={stylex(styles.listItem)}>Каталог</li>
-                        <li className={stylex(styles.listItem)}>О нас</li>
+                        <li className={stylex(styles.listItem)}>Про нас</li>
                         <li className={stylex(styles.listItem)}>
-                            Подбор товара
+                            Підбір товара
                         </li>
                         <li className={stylex(styles.listItem)}>
                             Наша команда
                         </li>
                         <li className={stylex(styles.listItem)}>
-                            Доставка и оплата
+                            Доставка і оплата
                         </li>
-                        <li className={stylex(styles.listItem)}>Контакты</li>
+                        <li className={stylex(styles.listItem)}>Контакти</li>
                         <li className={stylex(styles.listItem)}>Корзина</li>
                     </ul>
                 </nav>

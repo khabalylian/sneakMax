@@ -54,11 +54,11 @@ const styles = stylex.create({
     }
 });
 
-export const HoverGoods = ({article, title, image, data }: IGoods) => {
+export const HoverGoods = ({ article, title, image, data }: IGoods) => {
     const busketGoods = GoodsState(state => state.busketGoods);
     const updateBusketGoods = GoodsState(state => state.updateBusketGoods);
 
-	const [showCardGoods, setShowCardGoods] = useState<boolean>(false);
+    const [showCardGoods, setShowCardGoods] = useState<boolean>(false);
 
     return (
         <div className={stylex(styles.goodsWrapper)}>

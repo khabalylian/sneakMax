@@ -1,7 +1,14 @@
-import stylex from '@stylexjs/stylex';
+import * as stylex from '@stylexjs/stylex';
 import { colors } from '../../../variables/tokens.stylex';
 import { IGoods } from '../../Goods/Goods';
 import { GoodsState } from '../../../store';
+import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+
+interface IBuyItem
+    extends DetailedHTMLProps<
+        ButtonHTMLAttributes<HTMLDivElement>,
+        HTMLDivElement
+    > {}
 
 const styles = stylex.create({
     card: {
@@ -39,7 +46,13 @@ const styles = stylex.create({
     }
 });
 
-export const ByuItem = ({ title, image, article, data }: IGoods) => {
+export const ByuItem = ({
+    title,
+    image,
+    article,
+    data,
+    ...props
+}: IGoods & IBuyItem) => {
     const busketGoods = GoodsState(state => state.busketGoods);
     const updateGoods = GoodsState(state => state.updateBusketGoods);
 
@@ -48,15 +61,15 @@ export const ByuItem = ({ title, image, article, data }: IGoods) => {
     };
 
     return (
-        <div className={stylex(styles.card)}>
-            <img className={stylex(styles.img)} src={image} alt={image} />
-            <div className={stylex(styles.infoProduct)}>
-                <h4 className={stylex(styles.title)}>{title}</h4>
-                <p className={stylex(styles.price)}>{data.price}</p>
+        <div {...stylex.props(styles.card)} {...props}>
+            <img {...stylex.props(styles.img)} src={image} alt={image} />
+            <div {...stylex.props(styles.infoProduct)}>
+                <h4 {...stylex.props(styles.title)}>{title}</h4>
+                <p {...stylex.props(styles.price)}>{data.price} грн.</p>
             </div>
             <div
                 onClick={() => updateGoods(deleteWithBasket())}
-                className={stylex(styles.trash)}
+                {...stylex.props(styles.trash)}
             >
                 <svg
                     width='20'

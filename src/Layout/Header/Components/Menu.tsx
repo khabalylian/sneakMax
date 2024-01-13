@@ -106,11 +106,11 @@ export const Menu = () => {
                 <nav className={stylex(styles.menuList)}>
                     <ul className={stylex(styles.list)}>
                         <li>Каталог</li>
-                        <li>О нас</li>
-                        <li>Подбор товара</li>
+                        <li>Про нас</li>
+                        <li>Підбір товара</li>
                         <li>Наша команда</li>
-                        <li>Доставка и оплата</li>
-                        <li>Контакты</li>
+                        <li>Доставка і оплата</li>
+                        <li>Контакти</li>
                         <li>Корзина</li>
                     </ul>
                 </nav>

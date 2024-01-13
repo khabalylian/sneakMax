@@ -6,6 +6,7 @@ import { colors } from '../../../variables/tokens.stylex';
 import { GoodsState } from '../../../store';
 import { ModalBackground } from '../../../helpers/ModalBackground';
 
+const MEDIA_WIDTH_480 = '@media (max-width: 576px)';
 interface IBasketModal {
     totalPrice: number;
     handleClose: () => void;
@@ -17,7 +18,10 @@ const styles = stylex.create({
         position: 'absolute',
         top: '64px',
         right: 0,
-        width: '480px',
+        width: {
+            default: '480px',
+            [MEDIA_WIDTH_480]: '300px'
+        },
         height: '415px',
         backgroundColor: colors.text_main,
         zIndex: 2000
@@ -40,7 +44,10 @@ const styles = stylex.create({
     total: {
         display: 'flex',
         justifyContent: 'space-between',
-        padding: '20px'
+        padding: {
+            default: '20px',
+            [MEDIA_WIDTH_480]: '5px'
+        }
     },
     totalPrice: {
         display: 'flex',
@@ -78,7 +85,7 @@ export const BasketModal = ({
                 </div>
                 <div className={stylex(styles.total)}>
                     <div className={stylex(styles.totalPrice)}>
-                        <span className={stylex(styles.totalSpan)}>Итого:</span>
+                        <span className={stylex(styles.totalSpan)}>Разом:</span>
                         {totalPrice}
                     </div>
                     <CustomButton
