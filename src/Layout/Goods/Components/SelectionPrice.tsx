@@ -1,6 +1,6 @@
 import stylex from '@stylexjs/stylex';
 import Slider from '@mui/material/Slider';
-import { MouseEvent, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, MouseEvent, useEffect, useMemo, useState } from 'react';
 import { Box } from '@mui/material';
 import { colors } from '../../../variables/tokens.stylex';
 import { Checkbox } from '../../../helpers/Checkbox';
@@ -50,10 +50,10 @@ const styles = stylex.create({
             default: 'inherit',
             [MEDIA_WIDTH_576]: '#968edf'
         },
-		borderRadius: {
-			default: 0,
-			[MEDIA_WIDTH_576]: '5px'
-		},
+        borderRadius: {
+            default: 0,
+            [MEDIA_WIDTH_576]: '5px'
+        },
         zIndex: 101
     },
     title: {
@@ -192,7 +192,8 @@ export const SelectionPrice = ({
     };
 
     const getInfoGender = useMemo(
-        () => (name: string) => {
+        () => (e: ChangeEvent<HTMLInputElement>) => {
+            const name: string = (e.target as HTMLInputElement).name;
             if (gender.includes(name)) {
                 const filterGender = gender.filter(gender => gender !== name);
                 setGender(filterGender);
@@ -263,20 +264,14 @@ export const SelectionPrice = ({
                 <p>Стать</p>
                 <div className={stylex(styles.genderWrapper)}>
                     <Checkbox
-                        gender={gender}
                         name='male'
                         text='Чоловічий'
-                        onChange={e =>
-                            getInfoGender((e.target as HTMLInputElement).name)
-                        }
+                        handler={getInfoGender}
                     />
                     <Checkbox
-                        gender={gender}
                         name='female'
                         text='Жіночий'
-                        onChange={e =>
-                            getInfoGender((e.target as HTMLInputElement).name)
-                        }
+                        handler={getInfoGender}
                     />
                 </div>
             </div>

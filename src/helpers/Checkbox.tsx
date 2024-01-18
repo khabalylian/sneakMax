@@ -1,6 +1,6 @@
 import stylex from '@stylexjs/stylex';
 import { colors } from '../variables/tokens.stylex';
-import { ButtonHTMLAttributes, DetailedHTMLProps} from 'react';
+import { ButtonHTMLAttributes, ChangeEvent, DetailedHTMLProps} from 'react';
 
 interface ICheckbox
     extends DetailedHTMLProps<
@@ -9,7 +9,8 @@ interface ICheckbox
     > {
     name: string;
     text: string;
-	gender: string[];
+    handler?: (e: ChangeEvent<HTMLInputElement>) => void;
+    gender?: string[];
 }
 
 const styles = stylex.create({
@@ -37,19 +38,17 @@ const styles = stylex.create({
 export const Checkbox = ({
     name,
     text,
-	gender,
-    ...props
+	handler,
 }: ICheckbox) => {
 
     return (
-        <div className={stylex(styles.wrapper)} {...props}>
+        <div className={stylex(styles.wrapper)}>
             <input
                 className={stylex(styles.checkbox)}
                 type='checkbox'
-                checked={gender.includes(name)}
                 name={name}
                 id={name}
-                onChange={() => {}}
+                onChange={handler}
             />
             <label htmlFor={name}>{text}</label>
         </div>
