@@ -98,8 +98,8 @@ export const OurTeam = () => {
             <div className={stylex(styles.container)}>
                 <h2>Наша команда</h2>
                 <div className={stylex(styles.content)}>
-                    {OURTEAM.map(person => (
-                        <div className={stylex(styles.box)}>
+                    {OURTEAM.map((person, index) => (
+                        <div key={index} className={stylex(styles.box)}>
                             <img
                                 className={stylex(styles.img)}
                                 src={person.img}

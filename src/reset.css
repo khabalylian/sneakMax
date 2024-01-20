@@ -153,3 +153,7 @@ button {
 	font-weight: 400;
 	line-height: normal;
 }
+
+a {
+	text-decoration: none;
+}
