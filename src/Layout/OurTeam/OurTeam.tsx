@@ -2,9 +2,6 @@ import stylex from '@stylexjs/stylex';
 import { colors, containers } from '../../variables/tokens.stylex';
 
 const MEDIA_WIDTH_480 = '@media (max-width: 480px)';
-// const MEDIA_WIDTH_576 = '@media (max-width: 576px)';
-// const MEDIA_WIDTH_768 = '@media (max-width: 768px)';
-
 interface IOurTeam {
     img: string;
     name: string;
@@ -49,7 +46,7 @@ const styles = stylex.create({
         position: 'relative',
         backgroundColor: colors.bg_purple,
         color: colors.text_main,
-        padding: '120px 0 60px 0',
+        padding: '100px 0 60px 0',
         zIndex: 2,
         '::after': {
             content: '',
@@ -94,7 +91,7 @@ const styles = stylex.create({
 
 export const OurTeam = () => {
     return (
-        <section className={stylex(styles.ourTeam)}>
+        <section id='team' className={stylex(styles.ourTeam)}>
             <div className={stylex(styles.container)}>
                 <h2>Наша команда</h2>
                 <div className={stylex(styles.content)}>

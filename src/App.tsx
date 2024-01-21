@@ -7,6 +7,7 @@ import { OurTeam } from './Layout/OurTeam/OurTeam';
 import { Question } from './Layout/Question/Question';
 import { Contacts } from './Layout/Contacts/Contacts';
 import { WillContactYou } from './Layout/WillContactYou/WillContact';
+import { Footer } from './Layout/Footer/Footer';
 
 const styles = stylex.create({
     wrapper: {
@@ -25,6 +26,7 @@ function App() {
 			<Question />
 			<Contacts />
 			<WillContactYou />
+			<Footer />
         </div>
     );
 }

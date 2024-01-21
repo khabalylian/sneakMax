@@ -1,5 +1,6 @@
 import stylex from '@stylexjs/stylex';
 import { colors } from '../../../variables/tokens.stylex';
+import { CustomMenu } from '../../../helpers/CustomMenu';
 
 interface IBurgerMenu {
     openBurgerMenu: boolean;
@@ -49,7 +50,7 @@ const styles = stylex.create({
         display: 'none'
     },
     content: {
-        position: 'absolute',
+        position: 'fixed',
         top: 0,
         left: 0,
         backgroundColor: colors.text,
@@ -94,23 +95,11 @@ export const BurgerMenu = ({ openBurgerMenu, handleBurger }: IBurgerMenu) => {
                     openBurgerMenu ? styles.visible : styles.hidden
                 )}
             >
-                <nav>
-                    <ul className={stylex(styles.list)}>
-                        <li className={stylex(styles.listItem)}>Каталог</li>
-                        <li className={stylex(styles.listItem)}>Про нас</li>
-                        <li className={stylex(styles.listItem)}>
-                            Підбір товара
-                        </li>
-                        <li className={stylex(styles.listItem)}>
-                            Наша команда
-                        </li>
-                        <li className={stylex(styles.listItem)}>
-                            Доставка і оплата
-                        </li>
-                        <li className={stylex(styles.listItem)}>Контакти</li>
-                        <li className={stylex(styles.listItem)}>Корзина</li>
-                    </ul>
-                </nav>
+                <CustomMenu
+                    handlerBurger={handleBurger}
+                    list={styles.list}
+                    listItem={styles.listItem}
+                />
             </div>
         </>
     );

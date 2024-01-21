@@ -143,9 +143,9 @@ ul>li {
 	cursor: pointer;
 }
 
-li+li {
+/* li+li {
 	margin-left: calc(5px + 35 * (100vw / 1000));
-}
+} */
 
 button {
 	font-size: calc(14px + 2 * (100vw / 1180));

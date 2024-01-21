@@ -3,8 +3,8 @@ import { containers } from '../../variables/tokens.stylex';
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-
 const styles = stylex.create({
+    question: {},
     container: {
         maxWidth: containers.width,
         margin: containers.margin,
@@ -17,15 +17,15 @@ const styles = stylex.create({
         padding: '60px 0 60px 0'
     },
     accordion: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-	}
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+    }
 });
 
 export const Question = () => {
     return (
-        <section className={stylex(styles.question)}>
+        <section id='delivery' className={stylex(styles.question)}>
             <div className={stylex(styles.container)}>
                 <div className={stylex(styles.content)}>
                     <h3>Поширені запитання</h3>

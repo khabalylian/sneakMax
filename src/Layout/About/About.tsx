@@ -3,7 +3,7 @@ import { colors, containers } from '../../variables/tokens.stylex';
 
 const MEDIA_WIDTH_480 = '@media (max-width: 480px)';
 const MEDIA_WIDTH_1080 = '@media (max-width: 1080px)';
-const MEDIA_WIDTH_1200= '@media (max-width: 1200px)';
+const MEDIA_WIDTH_1200 = '@media (max-width: 1200px)';
 
 const styles = stylex.create({
     about: {
@@ -11,9 +11,9 @@ const styles = stylex.create({
         backgroundColor: colors.bg_purple,
         color: colors.text_main,
         padding: {
-			default: '222px 0 158px 0',
-			[MEDIA_WIDTH_480]: '150px 0 100px 0'
-		},
+            default: '222px 0 158px 0',
+            [MEDIA_WIDTH_480]: '150px 0 100px 0'
+        },
         '::after': {
             content: '',
             position: 'absolute',
@@ -22,7 +22,7 @@ const styles = stylex.create({
             top: 0,
             left: 0,
             width: '100%',
-            height: '424px',
+            height: '424px'
         }
     },
     container: {
@@ -71,7 +71,7 @@ const styles = stylex.create({
 
 export const About = () => {
     return (
-        <section className={stylex(styles.about)}>
+        <section id='about' className={stylex(styles.about)}>
             <div className={stylex(styles.container)}>
                 <div className={stylex(styles.content)}>
                     <h2>Пара слов о нас</h2>

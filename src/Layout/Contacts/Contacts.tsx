@@ -6,6 +6,7 @@ const MEDIA_WIDTH_768 = '@media (max-width: 768px)';
 const MEDIA_WIDTH_991 = '@media (max-width: 991px)';
 
 const styles = stylex.create({
+    contacts: {},
     container: {
         maxWidth: containers.width,
         margin: containers.margin,
@@ -18,13 +19,14 @@ const styles = stylex.create({
             [MEDIA_WIDTH_576]: 'column'
         },
         justifyContent: 'space-between',
-		alignItems: {
-			default: 'normal',
-			[MEDIA_WIDTH_576]: 'center'
-		},
+        alignItems: {
+            default: 'normal',
+            [MEDIA_WIDTH_576]: 'center'
+        },
         gap: '40px',
         padding: '60px 0 60px 0'
     },
+    leftSide: {},
     mainOffice: {
         display: 'flex',
         flexDirection: 'column'
@@ -97,7 +99,7 @@ const styles = stylex.create({
 
 export const Contacts = () => {
     return (
-        <section className={stylex(styles.contacts)}>
+        <section id='contacts' className={stylex(styles.contacts)}>
             <div className={stylex(styles.container)}>
                 <h2>Контакти</h2>
                 <div className={stylex(styles.content)}>

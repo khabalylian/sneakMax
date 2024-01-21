@@ -6,8 +6,10 @@ import { BurgerMenu } from './BurgerMenu';
 import { GoodsState } from '../../../store';
 import { IGoods } from '../../Goods/Goods';
 import { PlaceOrder } from './PlaceOrder';
+import { CustomMenu } from '../../../helpers/CustomMenu';
 
 const MEDIA_WIDTH_576 = '@media (max-width: 576px)';
+const MEDIA_WIDTH_991 = '@media (max-width: 991px)';
 
 const styles = stylex.create({
     wrapper: {
@@ -20,6 +22,10 @@ const styles = stylex.create({
     },
     list: {
         display: 'flex',
+        gap: {
+            default: '40px',
+            [MEDIA_WIDTH_991]: '15px'
+        },
         flexWrap: 'wrap',
         color: 'white'
     },
@@ -97,23 +103,14 @@ export const Menu = () => {
 
     const handleBurger = () => {
         setOpenBurgerMenu(!openBurgerMenu);
+        document.body.style.overflow = openBurgerMenu ? 'auto' : 'hidden';
     };
 
     return (
         <div className={stylex(styles.wrapper)}>
             <div className={stylex(styles.container)}>
                 <h2 className={stylex(styles.logo)}>SneakMax</h2>
-                <nav className={stylex(styles.menuList)}>
-                    <ul className={stylex(styles.list)}>
-                        <li>Каталог</li>
-                        <li>Про нас</li>
-                        <li>Підбір товара</li>
-                        <li>Наша команда</li>
-                        <li>Доставка і оплата</li>
-                        <li>Контакти</li>
-                        <li>Корзина</li>
-                    </ul>
-                </nav>
+                <CustomMenu menuList={styles.menuList} list={styles.list} />
                 <div className={stylex(styles.burgerMenu)}>
                     <BurgerMenu
                         openBurgerMenu={openBurgerMenu}

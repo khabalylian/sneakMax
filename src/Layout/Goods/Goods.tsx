@@ -72,7 +72,7 @@ const styles = stylex.create({
             default: 'none',
             [MEDIA_WIDTH_576]: 'block'
         },
-		padding: '10px',
+        padding: '10px',
         border: 'none',
         cursor: 'pointer'
     }
@@ -84,11 +84,11 @@ export const Goods = () => {
     const filteredGoods = GoodsState(state => state.filteredGoods);
 
     return (
-        <section className={stylex(styles.goods)}>
+        <section id='catalog' className={stylex(styles.goods)}>
             <div className={stylex(styles.container)}>
                 <h2 className={stylex(styles.title)}>Каталог</h2>
                 <CustomButton
-					backgroundColor='white'
+                    backgroundColor='white'
                     onClick={() => setShowSelection(!showSelection)}
                     className={styles.filterBtn}
                 >

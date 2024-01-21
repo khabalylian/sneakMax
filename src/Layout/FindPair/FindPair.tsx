@@ -144,7 +144,7 @@ export const FindPair = () => {
     }, [activeImg]);
 
     return (
-        <section className={stylex(styles.findPair)}>
+        <section id='goods' className={stylex(styles.findPair)}>
             <div className={stylex(styles.container)}>
                 {countSlide === 1 && (
                     <SlideCard
