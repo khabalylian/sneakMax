@@ -1,4 +1,5 @@
 import stylex from '@stylexjs/stylex';
+
 import { colors, containers } from '../../variables/tokens.stylex';
 
 const MEDIA_WIDTH_480 = '@media (max-width: 480px)';
@@ -89,7 +90,7 @@ const styles = stylex.create({
     }
 });
 
-export const OurTeam = () => {
+const OurTeam = () => {
     return (
         <section id='team' className={stylex(styles.ourTeam)}>
             <div className={stylex(styles.container)}>
@@ -111,3 +112,5 @@ export const OurTeam = () => {
         </section>
     );
 };
+
+export default OurTeam;

@@ -1,4 +1,5 @@
 import stylex from '@stylexjs/stylex';
+
 import { Menu } from './Components/Menu';
 import { colors, containers } from '../../variables/tokens.stylex';
 import { CustomButton } from '../../helpers/CustomButton';
@@ -33,7 +34,7 @@ const styles = stylex.create({
     }
 });
 
-export const Header = () => {
+const Header = () => {
     return (
         <header className={stylex(styles.header)}>
             <div className={stylex(styles.container)}>
@@ -57,3 +58,5 @@ export const Header = () => {
         </header>
     );
 };
+
+export default Header;

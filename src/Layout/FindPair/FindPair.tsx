@@ -1,13 +1,24 @@
+import { useEffect, useState, ChangeEvent} from 'react';
 import stylex from '@stylexjs/stylex';
+
 import { colors, containers } from '../../variables/tokens.stylex';
 import { SlideCard } from './components/SlideCard';
-import { Checkbox } from '../../helpers/Checkbox';
 import { CustomButton } from '../../helpers/CustomButton';
-import { useEffect, useState } from 'react';
+import { Checkbox } from '../../helpers/Checkbox';
+import { debounce } from '../../helpers/Debounce';
+import { AnimatePresence, LayoutGroup } from 'framer-motion';
 
 const MEDIA_WIDTH_480 = '@media (max-width: 480px)';
 const MEDIA_WIDTH_576 = '@media (max-width: 576px)';
 const MEDIA_WIDTH_768 = '@media (max-width: 768px)';
+
+interface IFormValue {
+	type: string[];
+	size: string[];
+	text: string;
+}
+
+type ValueObjectType = keyof Omit<IFormValue, 'text'>
 
 const styles = stylex.create({
     findPair: {
@@ -133,148 +144,231 @@ const styles = stylex.create({
     }
 });
 
-export const FindPair = () => {
+const FindPair = () => {
     const [activeImg, setActiveImg] = useState<boolean>(false);
     const [countSlide, setCountSide] = useState<number>(1);
 
-    useEffect(() => {
-        const timerImg = setTimeout(() => setActiveImg(false), 1000000);
+	const [valueCheckbox, setValueCheckbox] = useState<IFormValue>({type: [], size:[], text: ''});
 
+	const setCheckboxValue = (e: ChangeEvent<HTMLInputElement>, types: string) => {
+		const name: string = (e.target as HTMLInputElement).name;
+		
+		if (!valueCheckbox[types as ValueObjectType].includes(name)) {
+			setValueCheckbox({
+				...valueCheckbox,
+                [types]: [...valueCheckbox[types as ValueObjectType], name]
+            });
+        } else {
+			const filtered = valueCheckbox[types as ValueObjectType].filter(
+				type => type !== name
+				);
+				setValueCheckbox({
+					...valueCheckbox,
+					[types]: filtered
+				});
+			}
+	}
+	
+	const setTextAreaValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
+		const value = e.target.value;
+		setValueCheckbox({...valueCheckbox, text: value})
+	}
+	
+    useEffect(() => {
+		const timerImg = setTimeout(() => setActiveImg(false), 5);
+		
         return () => clearTimeout(timerImg);
     }, [activeImg]);
+	
+	const debouncedResize = debounce(setTextAreaValue, 300);
 
     return (
         <section id='goods' className={stylex(styles.findPair)}>
             <div className={stylex(styles.container)}>
-                {countSlide === 1 && (
-                    <SlideCard
-                        title='Мы подберем идеальную пару для вас'
-                        subtitle='Ответьте на три вопроса и мы вышлем каталог с самыми подходящими для вас моделями '
-                        descr='Какой тип кроссовок рассматриваете?'
-                    >
-                        <div className={stylex(styles.typeSneakers)}>
-                            <div className={stylex(styles.typeBox)}>
-                                <img
-                                    src='src/Layout/FindPair/img/sneakers.png'
-                                    alt='sneakers'
-                                />
-                                <Checkbox text='кеди' name='кеди' />
-                            </div>
-                            <div className={stylex(styles.typeBox)}>
-                                <img
-                                    src='src/Layout/FindPair/img/sneakers.png'
-                                    alt='sneakers'
-                                />
-                                <Checkbox text='кеди' name='кеди' />
-                            </div>
-                            <div className={stylex(styles.typeBox)}>
-                                <img
-                                    src='src/Layout/FindPair/img/sneakers.png'
-                                    alt='sneakers'
-                                />
-                                <Checkbox text='кеди' name='кеди' />
-                            </div>
-                            <div className={stylex(styles.typeBox)}>
-                                <img
-                                    src='src/Layout/FindPair/img/sneakers.png'
-                                    alt='sneakers'
-                                />
-                                <Checkbox text='кеди' name='кеди' />
-                            </div>
-                            <div className={stylex(styles.typeBox)}>
-                                <img
-                                    src='src/Layout/FindPair/img/sneakers.png'
-                                    alt='sneakers'
-                                />
-                                <Checkbox text='кеди' name='кеди' />
-                            </div>
-                            <div className={stylex(styles.typeBox)}>
-                                <img
-                                    src='src/Layout/FindPair/img/sneakers.png'
-                                    alt='sneakers'
-                                />
-                                <Checkbox text='кеди' name='кеди' />
-                            </div>
-                        </div>
-                    </SlideCard>
-                )}
-                {countSlide === 2 && (
-                    <SlideCard
-                        title='Мы подберем идеальную пару для вас'
-                        subtitle='Ответьте на три вопроса и мы вышлем каталог с самыми подходящими для вас моделями '
-                        descr='Какой размер вам подойдет?'
-                    >
-                        <div className={stylex(styles.perfectPair)}>
-                            <div className={stylex(styles.groupCheckbox)}>
-                                <Checkbox text='менше 36' name='менше 36' />
-                                <Checkbox text='36-38' name='36-38' />
-                                <Checkbox text='39-41' name='39-41' />
-                                <Checkbox text='42-44' name='42-44' />
-                                <Checkbox
-                                    text='45 і більше'
-                                    name='45 і більше'
-                                />
-                            </div>
-                            <img
-                                src='src/Layout/FindPair/img/slide2.png'
-                                alt='sneakers'
-                            />
-                        </div>
-                    </SlideCard>
-                )}
-                {countSlide === 3 && (
-                    <SlideCard
-                        title='Мы подберем идеальную пару для вас'
-                        subtitle='Ответьте на три вопроса и мы вышлем каталог с самыми подходящими для вас моделями '
-                        descr='Уточните какие-либо моменты?'
-                    >
-                        <textarea
-                            className={stylex(styles.textArea)}
-                            placeholder='Введіть текст'
-                        />
-                    </SlideCard>
-                )}
-                {countSlide === 4 && (
-                    <SlideCard
-                        title='Ваша подборка готова!'
-                        subtitle='Оставьте свои контактные данные, чтобы бы мы могли отправить  подготовленный для вас каталог'
-                    >
-                        <div
-                            className={stylex(
-                                styles.selectionReady,
-                                activeImg ? styles.imageActive : null
-                            )}
+                <LayoutGroup>
+                    {countSlide === 1 && (
+                        <SlideCard
+                            title='Ми підберемо ідеальну пару для вас'
+                            subtitle='Дайте відповідь на три запитання і ми надішлемо каталог з найкращими для вас моделями '
+                            descr='Який тип кросівок розглядаєте?'
                         >
-                            <h3>Получить предложение</h3>
-                            <p>
-                                Получите подборку подходящих для вас моделей на
-                                почту
-                            </p>
-                            <input
-                                className={stylex(styles.input)}
-                                type='text'
-                                placeholder='Ваше імя'
+                            <div className={stylex(styles.typeSneakers)}>
+                                <div className={stylex(styles.typeBox)}>
+                                    <img
+                                        src='src/Layout/FindPair/img/sneakers.png'
+                                        alt='sneakers'
+                                    />
+                                    <Checkbox
+                                        handler={setCheckboxValue}
+                                        text='кеди'
+                                        name='boot'
+                                        types='type'
+                                    />
+                                </div>
+                                <div className={stylex(styles.typeBox)}>
+                                    <img
+                                        src='src/Layout/FindPair/img/sneakers.png'
+                                        alt='sneakers'
+                                    />
+                                    <Checkbox
+                                        text='кеди'
+                                        name='athleticShoe'
+                                        handler={setCheckboxValue}
+                                        types='type'
+                                    />
+                                </div>
+                                <div className={stylex(styles.typeBox)}>
+                                    <img
+                                        src='src/Layout/FindPair/img/sneakers.png'
+                                        alt='sneakers'
+                                    />
+                                    <Checkbox
+                                        text='кеди'
+                                        name='sneaker'
+                                        handler={setCheckboxValue}
+                                        types='type'
+                                    />
+                                </div>
+                                <div className={stylex(styles.typeBox)}>
+                                    <img
+                                        src='src/Layout/FindPair/img/sneakers.png'
+                                        alt='sneakers'
+                                    />
+                                    <Checkbox
+                                        text='кеди'
+                                        name='sandal'
+                                        handler={setCheckboxValue}
+                                        types='type'
+                                    />
+                                </div>
+                                <div className={stylex(styles.typeBox)}>
+                                    <img
+                                        src='src/Layout/FindPair/img/sneakers.png'
+                                        alt='sneakers'
+                                    />
+                                    <Checkbox
+                                        text='кеди'
+                                        name='clog'
+                                        handler={setCheckboxValue}
+                                        types='type'
+                                    />
+                                </div>
+                                <div className={stylex(styles.typeBox)}>
+                                    <img
+                                        src='src/Layout/FindPair/img/sneakers.png'
+                                        alt='sneakers'
+                                    />
+                                    <Checkbox
+                                        text='кеди'
+                                        name='pump'
+                                        handler={setCheckboxValue}
+                                        types='type'
+                                    />
+                                </div>
+                            </div>
+                        </SlideCard>
+                    )}
+                    {countSlide === 2 && (
+                        <SlideCard
+                            title='Ми підберемо ідеальну пару для вас'
+                            subtitle='Дайте відповідь на три запитання і ми надішлемо каталог з найкращими для вас моделями '
+                            descr='Який розмір вам підійде?'
+                        >
+                            <div className={stylex(styles.perfectPair)}>
+                                <div className={stylex(styles.groupCheckbox)}>
+                                    <Checkbox
+                                        text='менше 36'
+                                        name='менше 36'
+                                        handler={setCheckboxValue}
+                                        types='size'
+                                    />
+                                    <Checkbox
+                                        text='36-38'
+                                        name='36-38'
+                                        handler={setCheckboxValue}
+                                        types='size'
+                                    />
+                                    <Checkbox
+                                        text='39-41'
+                                        name='39-41'
+                                        handler={setCheckboxValue}
+                                        types='size'
+                                    />
+                                    <Checkbox
+                                        text='42-44'
+                                        name='42-44'
+                                        handler={setCheckboxValue}
+                                        types='size'
+                                    />
+                                    <Checkbox
+                                        text='45 і більше'
+                                        name='45 і більше'
+                                        handler={setCheckboxValue}
+                                        types='size'
+                                    />
+                                </div>
+                                <img
+                                    src='src/Layout/FindPair/img/slide2.png'
+                                    alt='sneakers'
+                                />
+                            </div>
+                        </SlideCard>
+                    )}
+                    {countSlide === 3 && (
+                        <SlideCard
+                            title='Ми підберемо ідеальну пару для вас'
+                            subtitle='Дайте відповідь на три запитання і ми надішлемо каталог з найкращими для вас моделями '
+                            descr='Уточніть будь-які моменти?'
+                        >
+                            <textarea
+                                onChange={debouncedResize}
+                                className={stylex(styles.textArea)}
+                                placeholder='Введіть текст'
                             />
-                            <input
-                                className={stylex(styles.input)}
-                                type='text'
-                                placeholder='E-mail'
-                            />
-                            <CustomButton
-                                backgroundColor='red'
-                                className={styles.btn}
-                                onClick={() => setActiveImg(true)}
+                        </SlideCard>
+                    )}
+                    {countSlide === 4 && (
+                        <SlideCard
+                            title='Ваша вибірка готова!'
+                            subtitle='Залиште свої контактні дані, щоб ми могли відправити підготовлений для вас каталог'
+                        >
+                            <div
+                                className={stylex(
+                                    styles.selectionReady,
+                                    activeImg ? styles.imageActive : null
+                                )}
                             >
-                                Получити
-                            </CustomButton>
-                            <img
-                                className={stylex(styles.iphoneImg)}
-                                src='src/Layout/FindPair/img/iPhone11.png'
-                                alt='iPhone11'
-                            />
-                        </div>
-                    </SlideCard>
-                )}
+                                <h3>Отримати пропозицію</h3>
+                                <p>
+                                    Отримайте добірку підходящих для вас моделей
+                                    на пошту
+                                </p>
+                                <input
+                                    className={stylex(styles.input)}
+                                    type='text'
+                                    placeholder='Ваше імя'
+                                />
+                                <input
+                                    className={stylex(styles.input)}
+                                    type='text'
+                                    placeholder='E-mail'
+                                />
+                                <CustomButton
+                                    backgroundColor='red'
+                                    className={styles.btn}
+                                    onClick={() => setActiveImg(true)}
+                                >
+                                    Получити
+                                </CustomButton>
+                                <img
+                                    className={stylex(styles.iphoneImg)}
+                                    src='src/Layout/FindPair/img/iPhone11.png'
+                                    alt='iPhone11'
+                                />
+                            </div>
+                        </SlideCard>
+                    )}
+                </LayoutGroup>
                 {countSlide === 4 || (
                     <div className={stylex(styles.footerCard)}>
                         <p>{countSlide} з 4</p>
@@ -290,3 +384,5 @@ export const FindPair = () => {
         </section>
     );
 };
+
+export default FindPair;

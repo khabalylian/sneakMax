@@ -1,4 +1,5 @@
 import stylex from '@stylexjs/stylex';
+
 import { colors, containers } from '../../variables/tokens.stylex';
 
 const MEDIA_WIDTH_576 = '@media (max-width: 576px)';
@@ -97,7 +98,7 @@ const styles = stylex.create({
     }
 });
 
-export const Contacts = () => {
+const Contacts = () => {
     return (
         <section id='contacts' className={stylex(styles.contacts)}>
             <div className={stylex(styles.container)}>
@@ -209,3 +210,5 @@ export const Contacts = () => {
         </section>
     );
 };
+
+export default Contacts;

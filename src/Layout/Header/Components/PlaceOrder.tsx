@@ -1,4 +1,5 @@
 import stylex from '@stylexjs/stylex';
+
 import { colors } from '../../../variables/tokens.stylex';
 import { GoodsState } from '../../../store';
 import { ByuItem } from './BuyItem';
@@ -132,7 +133,6 @@ const styles = stylex.create({
 });
 
 export const PlaceOrder = ({ setShowPlaceOrder, totalPrice }: IPlaceOrder) => {
-    const countGoods = GoodsState(state => state.countGoods);
     const busketGoods = GoodsState(state => state.busketGoods);
 
     return (
@@ -149,13 +149,13 @@ export const PlaceOrder = ({ setShowPlaceOrder, totalPrice }: IPlaceOrder) => {
                     <p className={stylex(styles.wrapperTitle)}>
                         Товарів в заказі:
                         <span className={stylex(styles.wrapperSpan)}>
-                            {totalPrice}
+                            {busketGoods.length} шт.
                         </span>
                     </p>
                     <p className={stylex(styles.wrapperTitle)}>
                         Загальна сума заказу:
                         <span className={stylex(styles.wrapperSpan)}>
-                            {countGoods} шт.
+                            {totalPrice} грн.
                         </span>
                     </p>
                     <p className={stylex(styles.orderTitle)}>

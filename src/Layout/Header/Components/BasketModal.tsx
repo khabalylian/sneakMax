@@ -1,9 +1,9 @@
 import stylex from '@stylexjs/stylex';
-import { ByuItem } from './BuyItem';
-import { CustomButton } from '../../../helpers/CustomButton';
 
+import { ByuItem } from './BuyItem';
 import { colors } from '../../../variables/tokens.stylex';
 import { GoodsState } from '../../../store';
+import { CustomButton } from '../../../helpers/CustomButton';
 import { ModalBackground } from '../../../helpers/ModalBackground';
 
 const MEDIA_WIDTH_480 = '@media (max-width: 576px)';

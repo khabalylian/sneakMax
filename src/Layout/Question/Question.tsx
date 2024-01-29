@@ -1,7 +1,8 @@
 import stylex from '@stylexjs/stylex';
-import { containers } from '../../variables/tokens.stylex';
-import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+
+import { containers } from '../../variables/tokens.stylex';
 
 const styles = stylex.create({
     question: {},
@@ -23,7 +24,7 @@ const styles = stylex.create({
     }
 });
 
-export const Question = () => {
+const Question = () => {
     return (
         <section id='delivery' className={stylex(styles.question)}>
             <div className={stylex(styles.container)}>
@@ -66,3 +67,5 @@ export const Question = () => {
         </section>
     );
 };
+
+export default Question;

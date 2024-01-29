@@ -1,10 +1,13 @@
+import { useEffect, useState} from 'react';
+import { AnimatePresence} from 'framer-motion';
 import stylex from '@stylexjs/stylex';
+
 import { colors, containers } from '../../variables/tokens.stylex';
 import { SelectionPrice } from './Components/SelectionPrice';
-import { CustomButton } from '../../helpers/CustomButton';
 import { HoverGoods } from './Components/HoverGoods';
 import { GoodsState } from '../../store';
-import { useState } from 'react';
+import { CustomButton } from '../../helpers/CustomButton';
+
 
 const MEDIA_WIDTH_576 = '@media (max-width: 576px)';
 const MEDIA_WIDTH_768 = '@media (max-width: 768px)';
@@ -75,13 +78,37 @@ const styles = stylex.create({
         padding: '10px',
         border: 'none',
         cursor: 'pointer'
+    },
+    btnGroup: {
+        display: 'flex',
+        gap: '10px'
     }
 });
 
-export const Goods = () => {
+const Goods = () => {
     const [showSelection, setShowSelection] = useState<boolean>(false);
 
+    const getGoods = GoodsState(state => state.getGoods);
+    const goods = GoodsState(state => state.goods);
+    const countLimit = GoodsState(state => state.countLimit);
     const filteredGoods = GoodsState(state => state.filteredGoods);
+    const updateCount = GoodsState(state => state.updateCount);
+    const countGoods = GoodsState(state => state.countGoods);
+
+    useEffect(() => {
+        getGoods(countLimit);
+        updateCount();
+    }, []);
+
+    const scrollToLastProduct = () => {
+        const content = document.querySelector('#scroll') as HTMLDivElement;
+        const targetPosition =
+            content.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+        });
+    };
 
     return (
         <section id='catalog' className={stylex(styles.goods)}>
@@ -115,24 +142,51 @@ export const Goods = () => {
                         setShowSelection={setShowSelection}
                     />
                     <div className={stylex(styles.content)}>
-                        <div className={stylex(styles.goodsContent)}>
-                            {filteredGoods.map((goods, id: number) => (
-                                <HoverGoods key={id} {...goods} />
-                            ))}
-                        </div>
-                        <CustomButton
-                            className={
-                                filteredGoods.length === 0
-                                    ? styles.hideBtn
-                                    : styles.btn
-                            }
-                            backgroundColor='red'
+                        <div
+                            className={stylex(styles.goodsContent)}
+                            id='scroll'
                         >
-                            Показать еще
-                        </CustomButton>
+                            <AnimatePresence mode='sync'>
+                                {filteredGoods.map((goods, id: number) => (
+                                    <HoverGoods key={id} {...goods} />
+                                ))}
+                            </AnimatePresence>
+                        </div>
+                        <div className={stylex(styles.btnGroup)}>
+                            <CustomButton
+                                onClick={() => {
+                                    getGoods(countLimit - 9);
+                                    scrollToLastProduct();
+                                }}
+                                className={
+                                    goods.length <= 9
+                                        ? styles.hideBtn
+                                        : styles.btn
+                                }
+                                backgroundColor='red'
+                            >
+                                Приховати
+                            </CustomButton>
+                            <CustomButton
+                                onClick={() => {
+                                    getGoods(countLimit + 9);
+                                }}
+                                className={
+                                    goods.length === 0 ||
+                                    goods.length === countGoods
+                                        ? styles.hideBtn
+                                        : styles.btn
+                                }
+                                backgroundColor='red'
+                            >
+                                Показати більше
+                            </CustomButton>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
     );
 };
+
+export default Goods;

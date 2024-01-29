@@ -1,9 +1,10 @@
-import stylex from '@stylexjs/stylex';
-import { ModalBackground } from '../../../helpers/ModalBackground';
-import { colors } from '../../../variables/tokens.stylex';
 import { MouseEvent, TouchEvent, useMemo, useRef, useState } from 'react';
+import stylex from '@stylexjs/stylex';
+
+import { colors } from '../../../variables/tokens.stylex';
 import { IGoods } from '../Goods';
 import { CustomButton } from '../../../helpers/CustomButton';
+
 const MEDIA_WIDTH_480 = '@media (max-width: 480px)';
 const MEDIA_WIDTH_650 = '@media (max-width: 650px)';
 const MEDIA_WIDTH_768 = '@media (max-width: 768px)';

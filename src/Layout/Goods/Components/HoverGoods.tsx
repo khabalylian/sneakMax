@@ -1,10 +1,12 @@
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import stylex from '@stylexjs/stylex';
+
 import { colors } from '../../../variables/tokens.stylex';
 import { CustomButton } from '../../../helpers/CustomButton';
 import { IGoods } from '../Goods';
-import { GoodsState } from '../../../store';
-import { useState } from 'react';
 import { CardOrderGoods } from './CardGoods';
+import { GoodsState } from '../../../store';
 
 const styles = stylex.create({
     goodsWrapper: {
@@ -61,7 +63,13 @@ export const HoverGoods = ({ article, title, image, data }: IGoods) => {
     const [showCardGoods, setShowCardGoods] = useState<boolean>(false);
 
     return (
-        <div className={stylex(styles.goodsWrapper)}>
+        <motion.div
+			layout
+            className={stylex(styles.goodsWrapper)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.2 }}
+        >
             <img className={stylex(styles.goodsImg)} src={image} alt={image} />
             <p className={stylex(styles.goodsTitle)}>{title}</p>
             <div className={stylex(styles.goodsPrice)}>{data.price} Грн</div>
@@ -128,6 +136,6 @@ export const HoverGoods = ({ article, title, image, data }: IGoods) => {
                     dataGoods={{ article, title, image, data }}
                 />
             )}
-        </div>
+        </motion.div>
     );
 };

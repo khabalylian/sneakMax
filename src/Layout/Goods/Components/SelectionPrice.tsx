@@ -1,10 +1,11 @@
+import { ChangeEvent, MouseEvent, useEffect, useMemo, useState } from 'react';
 import stylex from '@stylexjs/stylex';
 import Slider from '@mui/material/Slider';
-import { ChangeEvent, MouseEvent, useEffect, useMemo, useState } from 'react';
 import { Box } from '@mui/material';
+
 import { colors } from '../../../variables/tokens.stylex';
-import { Checkbox } from '../../../helpers/Checkbox';
 import { CustomButton } from '../../../helpers/CustomButton';
+import { Checkbox } from '../../../helpers/Checkbox';
 import { GoodsState } from '../../../store';
 
 const MEDIA_WIDTH_576 = '@media (max-width: 576px)';

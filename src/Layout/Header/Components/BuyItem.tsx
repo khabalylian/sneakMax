@@ -1,8 +1,9 @@
+import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 import * as stylex from '@stylexjs/stylex';
+
 import { colors } from '../../../variables/tokens.stylex';
 import { IGoods } from '../../Goods/Goods';
 import { GoodsState } from '../../../store';
-import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 
 interface IBuyItem
     extends DetailedHTMLProps<

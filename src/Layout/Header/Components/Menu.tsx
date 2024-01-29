@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import stylex from '@stylexjs/stylex';
-import { BasketModal } from './BasketModal';
+
 import { colors } from '../../../variables/tokens.stylex';
-import { BurgerMenu } from './BurgerMenu';
 import { GoodsState } from '../../../store';
 import { IGoods } from '../../Goods/Goods';
-import { PlaceOrder } from './PlaceOrder';
 import { CustomMenu } from '../../../helpers/CustomMenu';
+import { BasketModal } from './BasketModal';
+import { BurgerMenu } from './BurgerMenu';
+import { PlaceOrder } from './PlaceOrder';
 
 const MEDIA_WIDTH_576 = '@media (max-width: 576px)';
 const MEDIA_WIDTH_991 = '@media (max-width: 991px)';
@@ -82,8 +83,6 @@ export const Menu = () => {
     const [showPlaceOrder, setShowPlaceOrder] = useState<boolean>(false);
 
     const busketGoods = GoodsState(state => state.busketGoods);
-    const countGoods = GoodsState(state => state.countGoods);
-    const updateCount = GoodsState(state => state.updateCount);
 
     const sumPrice = (goods: IGoods[]) => {
         return goods.reduce((acc, product) => (acc += product.data.price), 0);
@@ -91,7 +90,6 @@ export const Menu = () => {
 
     useEffect(() => {
         setTotalPrice(sumPrice(busketGoods));
-        updateCount(busketGoods.length);
     }, [busketGoods]);
 
     const handleOpen = () => {
@@ -133,12 +131,12 @@ export const Menu = () => {
                         fill='white'
                     />
                 </svg>
-                {countGoods ? (
+                {busketGoods.length ? (
                     <span
                         onClick={handleOpen}
                         className={stylex(styles.busketCounter)}
                     >
-                        {countGoods}
+                        {busketGoods.length}
                     </span>
                 ) : null}
             </div>

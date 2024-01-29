@@ -87,7 +87,7 @@ const styles = stylex.create({
     }
 });
 
-export const WillContactYou = () => {
+const WillContactYou = () => {
     return (
         <section id='question' className={stylex(styles.willContactYou)}>
             <div className={stylex(styles.container)}>
@@ -170,3 +170,5 @@ export const WillContactYou = () => {
         </section>
     );
 };
+
+export default WillContactYou;
