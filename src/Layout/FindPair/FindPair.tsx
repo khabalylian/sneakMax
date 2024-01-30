@@ -6,7 +6,7 @@ import { SlideCard } from './components/SlideCard';
 import { CustomButton } from '../../helpers/CustomButton';
 import { Checkbox } from '../../helpers/Checkbox';
 import { debounce } from '../../helpers/Debounce';
-import { AnimatePresence, LayoutGroup } from 'framer-motion';
+import { LayoutGroup } from 'framer-motion';
 
 const MEDIA_WIDTH_480 = '@media (max-width: 480px)';
 const MEDIA_WIDTH_576 = '@media (max-width: 576px)';

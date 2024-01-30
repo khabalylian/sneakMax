@@ -35,6 +35,11 @@ const styles = stylex.create({
 });
 
 const Header = () => {
+	const scrollToSection = (sectionId: string) => {
+        const section = document.getElementById(sectionId) as HTMLDivElement;
+        section.scrollIntoView({ behavior: 'smooth' });
+    };
+
     return (
         <header className={stylex(styles.header)}>
             <div className={stylex(styles.container)}>
@@ -48,6 +53,7 @@ const Header = () => {
                         Converse та багато інших за низькими цінами
                     </p>
                     <CustomButton
+                        onClick={() => scrollToSection('catalog')}
                         backgroundColor='red'
                         className={styles.button}
                     >

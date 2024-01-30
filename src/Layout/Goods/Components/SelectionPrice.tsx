@@ -49,10 +49,18 @@ const styles = stylex.create({
         color: colors.text,
         backgroundColor: {
             default: 'inherit',
-            [MEDIA_WIDTH_576]: '#968edf'
+            [MEDIA_WIDTH_576]: colors.text_main
+        },
+        border: {
+            default: 'none',
+            [MEDIA_WIDTH_576]: '1px solid black'
         },
         borderRadius: {
             default: 0,
+            [MEDIA_WIDTH_576]: '5px'
+        },
+        padding: {
+            default: 'none',
             [MEDIA_WIDTH_576]: '5px'
         },
         zIndex: 101
@@ -195,6 +203,7 @@ export const SelectionPrice = ({
     const getInfoGender = useMemo(
         () => (e: ChangeEvent<HTMLInputElement>) => {
             const name: string = (e.target as HTMLInputElement).name;
+
             if (gender.includes(name)) {
                 const filterGender = gender.filter(gender => gender !== name);
                 setGender(filterGender);
@@ -299,6 +308,7 @@ export const SelectionPrice = ({
                         setValue([20, 10000]);
                         setSizeActive([]);
                         setGender([]);
+                        setShowSelection(!showSelection);
                     }}
                     backgroundColor='white'
                     className={styles.btn}

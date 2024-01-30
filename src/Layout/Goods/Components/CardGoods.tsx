@@ -4,6 +4,7 @@ import stylex from '@stylexjs/stylex';
 import { colors } from '../../../variables/tokens.stylex';
 import { IGoods } from '../Goods';
 import { CustomButton } from '../../../helpers/CustomButton';
+import { ModalBackground } from '../../../helpers/ModalBackground';
 
 const MEDIA_WIDTH_480 = '@media (max-width: 480px)';
 const MEDIA_WIDTH_650 = '@media (max-width: 650px)';

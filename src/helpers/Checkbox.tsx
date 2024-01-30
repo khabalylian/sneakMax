@@ -11,7 +11,7 @@ interface ICheckbox
     text: string;
     handler: (e: ChangeEvent<HTMLInputElement>,  type: string) => void;
     gender?: string[];
-	types: string;
+	types?: string;
 }
 
 const styles = stylex.create({
@@ -50,7 +50,9 @@ export const Checkbox = ({
                 type='checkbox'
                 name={name}
                 id={name}
-                onChange={e => handler(e, types)}
+                onChange={e => {
+					if(types) handler(e, types)
+				}}
             />
             <label htmlFor={name}>{text}</label>
         </div>

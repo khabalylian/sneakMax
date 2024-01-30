@@ -172,7 +172,7 @@ const Goods = () => {
                                     getGoods(countLimit + 9);
                                 }}
                                 className={
-                                    goods.length === 0 ||
+                                    filteredGoods.length === 0 ||
                                     goods.length === countGoods
                                         ? styles.hideBtn
                                         : styles.btn
