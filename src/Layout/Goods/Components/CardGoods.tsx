@@ -6,6 +6,9 @@ import { IGoods } from '../Goods';
 import { CustomButton } from '../../../helpers/CustomButton';
 import { ModalBackground } from '../../../helpers/ModalBackground';
 
+import cardGoodsImg from '../img/cardGoods.png';
+import footwearImg from '../img/footwear.jpg'
+
 const MEDIA_WIDTH_480 = '@media (max-width: 480px)';
 const MEDIA_WIDTH_650 = '@media (max-width: 650px)';
 const MEDIA_WIDTH_768 = '@media (max-width: 768px)';
@@ -151,7 +154,7 @@ const styles = stylex.create({
         color: colors.small_text,
         ':hover::after': {
             content: '',
-            backgroundImage: "url('src/Layout/Goods/img/Union.svg')",
+            backgroundImage: "url('/image/Union.svg')",
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center 30%',
             position: 'absolute',
@@ -203,11 +206,7 @@ const styles = stylex.create({
 	left: {}
 });
 
-const IMG = [
-    'src/Layout/Goods/img/cardGoods.png',
-    'src/Layout/Goods/img/cardGoods.png',
-    'src/Layout/Goods/img/footwear.jpg'
-];
+const IMG = [cardGoodsImg, cardGoodsImg, footwearImg];
 
 export const CardOrderGoods = ({ setShowCardGoods, dataGoods }: ICardGoods) => {
     const [currentSlide, setCurrentSlide] = useState<number>(1);

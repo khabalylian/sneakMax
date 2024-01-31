@@ -8,6 +8,10 @@ import { Checkbox } from '../../helpers/Checkbox';
 import { debounce } from '../../helpers/Debounce';
 import { LayoutGroup } from 'framer-motion';
 
+import sneakers from './img/sneakers.png';
+import sliderImg from './img/slide2.png';
+import iphoneImg from './img/iPhone11.png';
+
 const MEDIA_WIDTH_480 = '@media (max-width: 480px)';
 const MEDIA_WIDTH_576 = '@media (max-width: 576px)';
 const MEDIA_WIDTH_768 = '@media (max-width: 768px)';
@@ -99,7 +103,7 @@ const styles = stylex.create({
                 [MEDIA_WIDTH_576]: 'none'
             },
             position: 'absolute',
-            background: 'url("src/Layout/findPair/img/send.png") no-repeat',
+            background: 'url("/image/send.png") no-repeat',
             backgroundSize: 'contain',
             top: '5px',
             right: '-10%',
@@ -194,10 +198,7 @@ const FindPair = () => {
                         >
                             <div className={stylex(styles.typeSneakers)}>
                                 <div className={stylex(styles.typeBox)}>
-                                    <img
-                                        src='src/Layout/FindPair/img/sneakers.png'
-                                        alt='sneakers'
-                                    />
+                                    <img src={sneakers} alt='sneakers' />
                                     <Checkbox
                                         handler={setCheckboxValue}
                                         text='кеди'
@@ -206,10 +207,7 @@ const FindPair = () => {
                                     />
                                 </div>
                                 <div className={stylex(styles.typeBox)}>
-                                    <img
-                                        src='src/Layout/FindPair/img/sneakers.png'
-                                        alt='sneakers'
-                                    />
+                                    <img src={sneakers} alt='sneakers' />
                                     <Checkbox
                                         text='кеди'
                                         name='athleticShoe'
@@ -218,10 +216,7 @@ const FindPair = () => {
                                     />
                                 </div>
                                 <div className={stylex(styles.typeBox)}>
-                                    <img
-                                        src='src/Layout/FindPair/img/sneakers.png'
-                                        alt='sneakers'
-                                    />
+                                    <img src={sneakers} alt='sneakers' />
                                     <Checkbox
                                         text='кеди'
                                         name='sneaker'
@@ -230,10 +225,7 @@ const FindPair = () => {
                                     />
                                 </div>
                                 <div className={stylex(styles.typeBox)}>
-                                    <img
-                                        src='src/Layout/FindPair/img/sneakers.png'
-                                        alt='sneakers'
-                                    />
+                                    <img src={sneakers} alt='sneakers' />
                                     <Checkbox
                                         text='кеди'
                                         name='sandal'
@@ -242,10 +234,7 @@ const FindPair = () => {
                                     />
                                 </div>
                                 <div className={stylex(styles.typeBox)}>
-                                    <img
-                                        src='src/Layout/FindPair/img/sneakers.png'
-                                        alt='sneakers'
-                                    />
+                                    <img src={sneakers} alt='sneakers' />
                                     <Checkbox
                                         text='кеди'
                                         name='clog'
@@ -254,10 +243,7 @@ const FindPair = () => {
                                     />
                                 </div>
                                 <div className={stylex(styles.typeBox)}>
-                                    <img
-                                        src='src/Layout/FindPair/img/sneakers.png'
-                                        alt='sneakers'
-                                    />
+                                    <img src={sneakers} alt='sneakers' />
                                     <Checkbox
                                         text='кеди'
                                         name='pump'
@@ -307,10 +293,7 @@ const FindPair = () => {
                                         types='size'
                                     />
                                 </div>
-                                <img
-                                    src='src/Layout/FindPair/img/slide2.png'
-                                    alt='sneakers'
-                                />
+                                <img src={sliderImg} alt='sneakers' />
                             </div>
                         </SlideCard>
                     )}
@@ -362,7 +345,7 @@ const FindPair = () => {
                                 </CustomButton>
                                 <img
                                     className={stylex(styles.iphoneImg)}
-                                    src='src/Layout/FindPair/img/iPhone11.png'
+                                    src={iphoneImg}
                                     alt='iPhone11'
                                 />
                             </div>

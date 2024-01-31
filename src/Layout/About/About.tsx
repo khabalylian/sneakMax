@@ -2,6 +2,8 @@ import stylex from '@stylexjs/stylex';
 
 import { colors, containers } from '../../variables/tokens.stylex';
 
+import mainImg from './img/mainimg.png'
+
 const MEDIA_WIDTH_480 = '@media (max-width: 480px)';
 const MEDIA_WIDTH_1080 = '@media (max-width: 1080px)';
 const MEDIA_WIDTH_1200 = '@media (max-width: 1200px)';
@@ -18,7 +20,7 @@ const styles = stylex.create({
         '::after': {
             content: '',
             position: 'absolute',
-            background: 'url("src/Layout/About/img/bgCircle.svg") no-repeat',
+            background: 'url("/image/bgCircle.svg") no-repeat',
             backgroundSize: 'contain',
             top: 0,
             left: 0,
@@ -88,7 +90,7 @@ const About = () => {
                 </div>
                 <img
                     className={stylex(styles.bgImg)}
-                    src='src/Layout/About/img/mainImg.png'
+                    src={mainImg}
                     alt='bgMain'
                 />
             </div>

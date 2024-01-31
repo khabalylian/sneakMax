@@ -3,6 +3,14 @@ import stylex from '@stylexjs/stylex';
 import { colors, containers } from '../../variables/tokens.stylex';
 
 const MEDIA_WIDTH_480 = '@media (max-width: 480px)';
+
+import people1 from './img/people1.jpg';
+import people2 from './img/people2.jpg'; 
+import people3 from './img/people3.jpg'; 
+import people4 from './img/people4.jpg'; 
+import people5 from './img/people5.jpg'; 
+import people6 from './img/people6.jpg';  
+
 interface IOurTeam {
     img: string;
     name: string;
@@ -11,32 +19,32 @@ interface IOurTeam {
 
 const OURTEAM: IOurTeam[] = [
     {
-        img: 'src/Layout/OurTeam/img/people1.jpg',
+        img: people1,
         name: 'Максим Золотарев',
         profession: 'Адміністратор'
     },
     {
-        img: 'src/Layout/OurTeam/img/people2.jpg',
+        img: people2,
         name: 'Максим Золотарев',
         profession: 'Адміністратор'
     },
     {
-        img: 'src/Layout/OurTeam/img/people3.jpg',
+        img: people3,
         name: 'Максим Золотарев',
         profession: 'Адміністратор'
     },
     {
-        img: 'src/Layout/OurTeam/img/people4.jpg',
+        img: people4,
         name: 'Максим Золотарев',
         profession: 'Адміністратор'
     },
     {
-        img: 'src/Layout/OurTeam/img/people5.jpg',
+        img: people5,
         name: 'Максим Золотарев',
         profession: 'Адміністратор'
     },
     {
-        img: 'src/Layout/OurTeam/img/people6.jpg',
+        img: people6,
         name: 'Максим Золотарев',
         profession: 'Адміністратор'
     }
@@ -52,7 +60,7 @@ const styles = stylex.create({
         '::after': {
             content: '',
             position: 'absolute',
-            background: 'url("src/Layout/OurTeam/img/bg.svg") no-repeat',
+            background: 'url("/image/bg.svg") no-repeat',
             backgroundSize: 'contain',
             width: '541px',
             height: '550px',

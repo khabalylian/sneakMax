@@ -52,7 +52,7 @@ const styles = stylex.create({
         ':hover::after': {
             content: '',
             position: 'absolute',
-            background: 'url("src/Layout/Contacts/img/question.svg") no-repeat',
+            background: 'url("/image/question.svg") no-repeat',
             backgroundPosition: 'center',
             top: '-80px',
             left: {

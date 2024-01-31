@@ -2,6 +2,13 @@ import stylex from '@stylexjs/stylex';
 import { colors, containers } from '../../variables/tokens.stylex';
 import { CustomButton } from '../../helpers/CustomButton';
 
+import instagramImg from './img/instagram.png';
+import workImg from './img/work.jpg';
+import roseImg from './img/rose.jpg';
+import fireworksImg from './img/fireworks.jpg';
+import dogImg from './img/dog.jpg';
+import cityImg from './img/city.jpg';
+
 const MEDIA_WIDTH_480 = '@media (max-width: 480px)';
 const MEDIA_WIDTH_768 = '@media (max-width: 768px)';
 const MEDIA_WIDTH_1200 = '@media (max-width: 1200px)';
@@ -113,55 +120,37 @@ const WillContactYou = () => {
                         </CustomButton>
                     </div>
                     <div className={stylex(styles.rightSide)}>
-                        <img
-                            src='src/Layout/WillContactYou/img/instagram.png'
-                            alt='instagram'
-                        />
+                        <img src={instagramImg} alt='instagram' />
                         <div className={stylex(styles.gallery)}>
                             <a
                                 className={stylex(styles.rose)}
                                 href='https://www.linkedin.com/in/ylian-khabal-9a64b3186/'
                             >
-                                <img
-                                    src='src/Layout/WillContactYou/img/rose.jpg'
-                                    alt='instagram'
-                                />
+                                <img src={roseImg} alt='rose' />
                             </a>
                             <a
                                 className={stylex(styles.firework)}
                                 href='https://www.linkedin.com/in/ylian-khabal-9a64b3186/'
                             >
-                                <img
-                                    src='src/Layout/WillContactYou/img/fireworks.jpg'
-                                    alt='instagram'
-                                />
+                                <img src={fireworksImg} alt='firework' />
                             </a>
                             <a
                                 className={stylex(styles.dog)}
                                 href='https://www.linkedin.com/in/ylian-khabal-9a64b3186/'
                             >
-                                <img
-                                    src='src/Layout/WillContactYou/img/dog.jpg'
-                                    alt='instagram'
-                                />
+                                <img src={dogImg} alt='dog' />
                             </a>
                             <a
                                 className={stylex(styles.work)}
                                 href='https://www.linkedin.com/in/ylian-khabal-9a64b3186/'
                             >
-                                <img
-                                    src='src/Layout/WillContactYou/img/work.jpg'
-                                    alt='instagram'
-                                />
+                                <img src={workImg} alt='work' />
                             </a>
                             <a
                                 className={stylex(styles.city)}
                                 href='https://www.linkedin.com/in/ylian-khabal-9a64b3186/'
                             >
-                                <img
-                                    src='src/Layout/WillContactYou/img/city.jpg'
-                                    alt='instagram'
-                                />
+                                <img src={cityImg} alt='city' />
                             </a>
                         </div>
                     </div>
