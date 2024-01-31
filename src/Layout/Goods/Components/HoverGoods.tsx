@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import stylex from '@stylexjs/stylex';
 
@@ -61,6 +61,14 @@ export const HoverGoods = ({ article, title, image, data }: IGoods) => {
     const updateBusketGoods = GoodsState(state => state.updateBusketGoods);
 
     const [showCardGoods, setShowCardGoods] = useState<boolean>(false);
+
+	useEffect(() => {
+		const timeoutOverflow = setTimeout (() => {
+			document.body.style.overflow = showCardGoods ? 'hidden' : 'visible';
+		}, 50)
+
+		return () => clearTimeout(timeoutOverflow);
+	}, [showCardGoods]);
 
     return (
         <motion.div

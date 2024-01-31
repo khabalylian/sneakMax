@@ -2,6 +2,7 @@ import stylex from '@stylexjs/stylex';
 
 import { colors, containers } from '../../variables/tokens.stylex';
 
+const MEDIA_WIDTH_480 = '@media (max-width: 480px)';
 const MEDIA_WIDTH_576 = '@media (max-width: 576px)';
 const MEDIA_WIDTH_768 = '@media (max-width: 768px)';
 const MEDIA_WIDTH_991 = '@media (max-width: 991px)';
@@ -54,8 +55,12 @@ const styles = stylex.create({
             background: 'url("src/Layout/Contacts/img/question.svg") no-repeat',
             backgroundPosition: 'center',
             top: '-80px',
-            left: '-5px',
-            width: '426px',
+            left: {
+				default: '-5px',
+				[MEDIA_WIDTH_480]: '-150px'
+			},
+            width: '305px',
+            backgroundPositionX: '10%',
             height: '80px',
             zIndex: 11111
         }

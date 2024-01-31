@@ -51,7 +51,8 @@ const styles = stylex.create({
     content: {
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
+		justifyContent: 'space-between',
+        // justifyContent: 'center',
         gap: '40px',
         width: '100%'
     },
@@ -61,6 +62,7 @@ const styles = stylex.create({
             default: 'flex-start',
             [MEDIA_WIDTH_768]: 'center'
         },
+		alignItems: 'flex-start',
         flexWrap: 'wrap',
         gap: '20px'
     },

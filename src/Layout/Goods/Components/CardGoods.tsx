@@ -198,7 +198,9 @@ const styles = stylex.create({
         border: 'none',
         padding: '5px 10px',
         cursor: 'pointer'
-    }
+    },
+	article:{},
+	left: {}
 });
 
 const IMG = [
