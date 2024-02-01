@@ -11,6 +11,7 @@ interface ISlideCard {
 
 const styles = stylex.create({
     slideCard: {
+		minHeight: '100%',
         display: 'flex',
         flexDirection: 'column',
         gap: '20px',
@@ -30,7 +31,7 @@ export const SlideCard = ({children, title, subtitle, descr}: ISlideCard) => {
             className={stylex(styles.slideCard)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 1 }}
         >
             <h2>{title}</h2>
             <p>{subtitle}</p>

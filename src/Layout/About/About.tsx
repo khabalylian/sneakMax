@@ -2,7 +2,9 @@ import stylex from '@stylexjs/stylex';
 
 import { colors, containers } from '../../variables/tokens.stylex';
 
-import mainImg from './img/mainimg.png'
+import imageMain from '/image/mainimg.png'
+
+console.log(imageMain)
 
 const MEDIA_WIDTH_480 = '@media (max-width: 480px)';
 const MEDIA_WIDTH_1080 = '@media (max-width: 1080px)';
@@ -90,7 +92,7 @@ const About = () => {
                 </div>
                 <img
                     className={stylex(styles.bgImg)}
-                    src={mainImg}
+                    src={imageMain}
                     alt='bgMain'
                 />
             </div>

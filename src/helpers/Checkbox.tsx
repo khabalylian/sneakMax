@@ -29,7 +29,7 @@ const styles = stylex.create({
         cursor: 'pointer',
         ':checked': {
             backgroundImage:
-                'url("src/helpers/Checked.svg")' /* вказати шлях до SVG файлу */,
+                'url("/image/Checked.svg")' /* вказати шлях до SVG файлу */,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center center'
         }
