@@ -1,4 +1,4 @@
-import { useEffect, useState, ChangeEvent} from 'react';
+import { useEffect, useState, ChangeEvent } from 'react';
 import stylex from '@stylexjs/stylex';
 
 import { colors, containers } from '../../variables/tokens.stylex';
@@ -17,12 +17,12 @@ const MEDIA_WIDTH_576 = '@media (max-width: 576px)';
 const MEDIA_WIDTH_768 = '@media (max-width: 768px)';
 
 interface IFormValue {
-	type: string[];
-	size: string[];
-	text: string;
+    type: string[];
+    size: string[];
+    text: string;
 }
 
-type ValueObjectType = keyof Omit<IFormValue, 'text'>
+type ValueObjectType = keyof Omit<IFormValue, 'text'>;
 
 const styles = stylex.create({
     findPair: {
@@ -152,39 +152,48 @@ const FindPair = () => {
     const [activeImg, setActiveImg] = useState<boolean>(false);
     const [countSlide, setCountSide] = useState<number>(1);
 
-	const [valueCheckbox, setValueCheckbox] = useState<IFormValue>({type: [], size:[], text: ''});
+    const [valueCheckbox, setValueCheckbox] = useState<IFormValue>({
+        type: [],
+        size: [],
+        text: ''
+    });
 
-	const setCheckboxValue = (e: ChangeEvent<HTMLInputElement>, types: string) => {
-		const name: string = (e.target as HTMLInputElement).name;
-		
-		if (!valueCheckbox[types as ValueObjectType].includes(name)) {
-			setValueCheckbox({
-				...valueCheckbox,
+    const setCheckboxValue = (
+        e: ChangeEvent<HTMLInputElement>,
+        types?: string
+    ) => {
+        const name: string = (e.target as HTMLInputElement).name;
+
+		if(!types) return;
+
+        if (!valueCheckbox[types as ValueObjectType].includes(name)) {
+            setValueCheckbox({
+                ...valueCheckbox,
                 [types]: [...valueCheckbox[types as ValueObjectType], name]
             });
         } else {
-			const filtered = valueCheckbox[types as ValueObjectType].filter(
-				type => type !== name
-				);
-				setValueCheckbox({
-					...valueCheckbox,
-					[types]: filtered
-				});
-			}
-	}
-	
-	const setTextAreaValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
-		const value = e.target.value;
-		setValueCheckbox({...valueCheckbox, text: value})
-	}
-	
+            const filtered = valueCheckbox[types as ValueObjectType].filter(
+                type => type !== name
+            );
+            setValueCheckbox({
+                ...valueCheckbox,
+                [types]: filtered
+            });
+        }
+    };
+
+    const setTextAreaValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        const value = e.target.value;
+        setValueCheckbox({ ...valueCheckbox, text: value });
+    };
+
     useEffect(() => {
-		const timerImg = setTimeout(() => setActiveImg(false), 5);
-		
+        const timerImg = setTimeout(() => setActiveImg(false), 5000);
+
         return () => clearTimeout(timerImg);
     }, [activeImg]);
-	
-	const debouncedResize = debounce(setTextAreaValue, 300);
+
+    const debouncedResize = debounce(setTextAreaValue, 300);
 
     return (
         <section id='goods' className={stylex(styles.findPair)}>

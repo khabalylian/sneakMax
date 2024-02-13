@@ -1,6 +1,6 @@
 import stylex from '@stylexjs/stylex';
 import { colors } from '../variables/tokens.stylex';
-import { ButtonHTMLAttributes, ChangeEvent, DetailedHTMLProps} from 'react';
+import { ButtonHTMLAttributes, ChangeEvent, DetailedHTMLProps } from 'react';
 
 interface ICheckbox
     extends DetailedHTMLProps<
@@ -9,23 +9,23 @@ interface ICheckbox
     > {
     name: string;
     text: string;
-    handler: (e: ChangeEvent<HTMLInputElement>,  type: string) => void;
+    handler: (e: ChangeEvent<HTMLInputElement>, types?: string) => void;
     gender?: string[];
-	types?: string;
+    types?: string;
 }
 
 const styles = stylex.create({
-	wrapper: {
-		display: 'flex',
-		alignItems: 'center',
-		gap: '10px'
-	},
+    wrapper: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px'
+    },
     checkbox: {
         width: '24px',
         height: '24px',
         border: `1px solid ${colors.line}`,
         borderRadius: '4px',
-		margin: 0,
+        margin: 0,
         cursor: 'pointer',
         ':checked': {
             backgroundImage:
@@ -36,13 +36,7 @@ const styles = stylex.create({
     }
 });
 
-export const Checkbox = ({
-    name,
-    text,
-	handler,
-	types
-}: ICheckbox) => {
-
+export const Checkbox = ({ name, text, handler, types }: ICheckbox) => {
     return (
         <div className={stylex(styles.wrapper)}>
             <input
@@ -51,8 +45,12 @@ export const Checkbox = ({
                 name={name}
                 id={name}
                 onChange={e => {
-					if(types) handler(e, types)
-				}}
+                    if (types) {
+                        handler(e, types);
+                    } else {
+                        handler(e);
+                    }
+                }}
             />
             <label htmlFor={name}>{text}</label>
         </div>

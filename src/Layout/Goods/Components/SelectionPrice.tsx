@@ -149,6 +149,7 @@ export const SelectionPrice = ({
     const [value, setValue] = useState<number[]>([20, 10000]);
     const [sizeActive, setSizeActive] = useState<number[]>([]);
     const [gender, setGender] = useState<string[]>([]);
+	console.log(gender)
 
     const handleChange = (_event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
